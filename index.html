@@ -2,23 +2,74 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- TODO: Set the document title to the name of your application -->
-    <title>Lovable App</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
-
-    <!-- TODO: Update og:title to match your application name -->
-    <meta property="og:title" content="Lovable App" />
-    <meta property="og:description" content="Lovable Generated Project" />
+    
+    <!-- Primary Meta Tags -->
+    <title>Grapevine Cottage | Unique Gifts & Home Décor in Collingwood</title>
+    <meta name="title" content="Grapevine Cottage | Unique Gifts & Home Décor in Collingwood" />
+    <meta name="description" content="Discover unique gifts, home décor, jewelry, and treasures at Grapevine Cottage in downtown Collingwood, Ontario. A beloved boutique serving the community since 2001." />
+    <meta name="author" content="Grapevine Cottage" />
+    
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-
+    <meta property="og:url" content="https://grapevinecottage.ca/" />
+    <meta property="og:title" content="Grapevine Cottage | Unique Gifts & Home Décor" />
+    <meta property="og:description" content="Discover unique gifts, home décor, jewelry, and treasures at Grapevine Cottage in downtown Collingwood, Ontario." />
+    
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Lovable" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta name="twitter:url" content="https://grapevinecottage.ca/" />
+    <meta name="twitter:title" content="Grapevine Cottage | Unique Gifts & Home Décor" />
+    <meta name="twitter:description" content="Discover unique gifts, home décor, jewelry, and treasures at Grapevine Cottage in downtown Collingwood, Ontario." />
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://grapevinecottage.ca/" />
+    
+    <!-- Local Business Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Grapevine Cottage",
+        "description": "A beloved boutique gift shop in downtown Collingwood, Ontario offering unique gifts, home décor, jewelry, and treasures since 2001.",
+        "url": "https://grapevinecottage.ca",
+        "telephone": "+1-705-445-8001",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "191 Hurontario Street, Unit 2",
+          "addressLocality": "Collingwood",
+          "addressRegion": "ON",
+          "postalCode": "L9Y 2M1",
+          "addressCountry": "CA"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 44.5004,
+          "longitude": -80.2183
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Tuesday", "Wednesday", "Friday", "Saturday"],
+            "opens": "10:00",
+            "closes": "16:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Thursday",
+            "opens": "10:00",
+            "closes": "17:30"
+          }
+        ],
+        "sameAs": [
+          "https://www.facebook.com/grapevinecottagecollingwood/",
+          "https://www.instagram.com/grapevinecottage/"
+        ],
+        "priceRange": "$$"
+      }
+    </script>
   </head>
-
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
