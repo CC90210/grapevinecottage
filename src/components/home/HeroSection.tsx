@@ -51,13 +51,13 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <span className="font-script text-3xl md:text-4xl text-primary-foreground/90 block mb-4">
-            Welcome to
+            Welcome to Grapevine Cottage
           </span>
-          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl text-primary-foreground font-semibold mb-6">
-            Discover Treasures at<br />Grapevine Cottage
+          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-primary-foreground font-semibold mb-6 leading-tight">
+            Where You Find Things<br />You Never Knew You Wanted
           </h1>
           <p className="font-body text-lg md:text-xl text-primary-foreground/85 max-w-2xl mx-auto mb-10">
-            Your Downtown Collingwood Destination for Unique Gifts & Home Décor Since 2001
+            A beloved Collingwood treasure since 2001 — unique gifts, unexpected finds, and a warm welcome waiting for you.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -65,9 +65,9 @@ const HeroSection = () => {
               asChild
               size="lg"
               variant="hero"
-              className="min-w-[200px]"
+              className="min-w-[220px]"
             >
-              <Link to="/shop">Explore Our Collections</Link>
+              <Link to="/shop">Discover What's In Store</Link>
             </Button>
             <Button
               asChild

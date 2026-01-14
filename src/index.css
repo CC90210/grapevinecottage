@@ -28,6 +28,10 @@
     --accent: 0 30% 74%;
     --accent-foreground: 0 0% 18%;
 
+    /* Terracotta/Clay - Warm Accent */
+    --terracotta: 18 45% 56%;
+    --terracotta-foreground: 30 50% 98%;
+
     /* Sage Green */
     --sage: 95 20% 61%;
     --sage-foreground: 0 0% 18%;

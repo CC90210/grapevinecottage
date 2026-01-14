@@ -25,8 +25,8 @@ const StoryPreviewSection = () => {
               />
             </div>
             {/* Decorative frame */}
-            <div className="absolute -top-4 -left-4 w-24 h-24 border-t-4 border-l-4 border-accent/50 rounded-tl-lg" />
-            <div className="absolute -bottom-4 -right-4 w-24 h-24 border-b-4 border-r-4 border-accent/50 rounded-br-lg" />
+            <div className="absolute -top-4 -left-4 w-24 h-24 border-t-4 border-l-4 border-terracotta/50 rounded-tl-lg" />
+            <div className="absolute -bottom-4 -right-4 w-24 h-24 border-b-4 border-r-4 border-terracotta/50 rounded-br-lg" />
           </motion.div>
 
           {/* Content */}
@@ -38,19 +38,23 @@ const StoryPreviewSection = () => {
             className="lg:pl-8"
           >
             <span className="font-script text-3xl text-primary block mb-2">
-              Our Story
+              A New Chapter
             </span>
             <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-6">
-              A Collingwood Treasure Since 2001
+              Same Heart, Fresh Energy
             </h2>
             <div className="space-y-4 text-muted-foreground text-lg">
               <p>
-                What began with handcrafted grapevine wreaths has grown into 
-                downtown Collingwood's most beloved gift shop.
+                In 2025, I was given an unexpected gift — the opportunity to become 
+                the guardian of this special place. What started with handcrafted 
+                grapevine wreaths in 2001 continues today with the same warmth and wonder.
               </p>
               <p>
-                For over two decades, we've been helping customers find unique treasures, 
-                the perfect gifts, and those special pieces that make a house feel like home.
+                People tell me all the time they don't know where we find the things we find. 
+                That's the magic of Grapevine Cottage.
+              </p>
+              <p className="font-medium text-foreground italic">
+                — Kim
               </p>
             </div>
             <Button asChild variant="link" className="mt-6 p-0 text-primary font-medium text-lg group">

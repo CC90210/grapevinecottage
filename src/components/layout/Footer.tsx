@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, MapPin, Phone } from "lucide-react";
+import { Facebook, Instagram, MapPin, Phone, Heart } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -11,11 +11,15 @@ const Footer = () => {
             <div>
               <span className="font-script text-3xl">Grapevine Cottage</span>
               <p className="text-primary-foreground/80 text-sm mt-2">
-                Fabulous & Unique Gift Store
+                Where you find things you never knew you wanted
               </p>
             </div>
-            <p className="text-primary-foreground/70 text-sm">
+            <p className="text-primary-foreground/70 text-sm flex items-center gap-1">
               Proudly serving Collingwood since 2001
+              <Heart className="w-3 h-3 fill-current" />
+            </p>
+            <p className="text-primary-foreground/60 text-xs italic">
+              New chapter, same heart.
             </p>
           </div>
 
@@ -27,10 +31,10 @@ const Footer = () => {
                 Home
               </Link>
               <Link to="/about" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm">
-                About Us
+                Our Story
               </Link>
               <Link to="/shop" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm">
-                Shop
+                Collections
               </Link>
               <Link to="/visit" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm">
                 Visit Us
@@ -43,7 +47,7 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h4 className="font-display text-lg mb-4">Contact Us</h4>
+            <h4 className="font-display text-lg mb-4">Find Us</h4>
             <div className="space-y-3">
               <div className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 mt-1 flex-shrink-0" />
@@ -60,11 +64,19 @@ const Footer = () => {
                 (705) 445-8001
               </a>
             </div>
+            <div className="mt-4 text-primary-foreground/70 text-xs">
+              <p>Tue–Wed: 10 AM – 4 PM</p>
+              <p>Thu: 10 AM – 5:30 PM</p>
+              <p>Fri–Sat: 10 AM – 4 PM</p>
+            </div>
           </div>
 
           {/* Follow Us */}
           <div>
             <h4 className="font-display text-lg mb-4">Follow Us</h4>
+            <p className="text-primary-foreground/70 text-sm mb-4">
+              See new arrivals & behind-the-scenes moments
+            </p>
             <div className="flex items-center gap-4">
               <a
                 href="https://www.facebook.com/grapevinecottagecollingwood/"

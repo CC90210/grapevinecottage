@@ -52,6 +52,10 @@ export default {
           DEFAULT: "hsl(var(--gold))",
           foreground: "hsl(var(--gold-foreground))",
         },
+        terracotta: {
+          DEFAULT: "hsl(var(--terracotta))",
+          foreground: "hsl(var(--terracotta-foreground))",
+        },
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { MapPin, ExternalLink } from "lucide-react";
+import { MapPin } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import SectionHeading from "@/components/ui/section-heading";
 import { Button } from "@/components/ui/button";
@@ -15,42 +15,42 @@ const collections = [
   {
     id: "home-decor",
     title: "Home Décor",
-    description: "Transform your space with unique wall art, vintage frames, whimsical clocks, and decorative treasures.",
+    description: "From metal wall art to vintage-style frames, these are the pieces that turn a house into your home. I'm always on the hunt for things that make you stop and say, 'I need that.'",
     image: homeDecorImg,
     items: ["Metal wall art", "Canvas prints", "Vintage-style picture frames", "Unique clocks", "Indoor water fountains", "Inspirational & funny signs"],
   },
   {
-    id: "fashion",
-    title: "Fashion & Accessories",
-    description: "Discover fair trade clothing, colorful scarves, and stylish purses that make a statement.",
-    image: fashionImg,
-    items: ["Red Coral Clothing", "Fair Trade Clothing", "One-size clothing options", "Pashmina scarves", "Fashion scarves", "Purses & handbags"],
-  },
-  {
     id: "jewelry",
     title: "Jewelry",
-    description: "From delicate Hazelwood necklaces to sparkling snowflake earrings, find pieces as unique as you.",
+    description: "Our jewelry collection is full of little treasures — Hazelwood necklaces, snowflake earrings that come gift-boxed with poems, and one-of-a-kind pieces you won't find anywhere else.",
     image: jewelryImg,
     items: ["Hazelwood necklaces", "Snowflake earrings & necklaces", "Gift-boxed pieces with poems", "Unique artisan jewelry"],
   },
   {
-    id: "wellness",
-    title: "Wellness & Spirituality",
-    description: "Create calm with Himalayan salt lamps, healing crystals, soothing candles, and more.",
-    image: wellnessImg,
-    items: ["Himalayan salt rock lamps", "Crystals", "Buddha statues & figures", "Jin Stick Natural Incense", "Country home candles"],
-  },
-  {
     id: "garden",
     title: "Garden & Outdoor",
-    description: "Add magic to your garden with wind chimes, sun catchers, and solar-powered butterflies.",
+    description: "Wind chimes that sing, sun catchers that sparkle, solar butterflies that surprise — if it brings joy to your garden, we probably have it.",
     image: gardenImg,
     items: ["Wind chimes", "Sun catchers", "Solar butterflies", "Garden decorations"],
   },
   {
+    id: "wellness",
+    title: "Wellness & Spirituality",
+    description: "Himalayan salt lamps, crystals, candles, and things that help you find your calm. Because we all need a little peace.",
+    image: wellnessImg,
+    items: ["Himalayan salt rock lamps", "Crystals", "Buddha statues & figures", "Jin Stick Natural Incense", "Country home candles"],
+  },
+  {
+    id: "fashion",
+    title: "Fashion & Accessories",
+    description: "Fair trade clothing, scarves in every color, purses that make a statement. Style that feels as good as it looks.",
+    image: fashionImg,
+    items: ["Red Coral Clothing", "Fair Trade Clothing", "One-size clothing options", "Pashmina scarves", "Fashion scarves", "Purses & handbags"],
+  },
+  {
     id: "gifts",
     title: "Gifts & Seasonal",
-    description: "Find the perfect present for any occasion, beautifully wrapped and ready to give.",
+    description: "The perfect present for the person who has everything. Because someone always knows exactly what to give — and that someone is us.",
     image: giftsImg,
     items: ["Gift-boxed items with poems", "Lang calendars", "Calendar frames", "Seasonal gifts", "Whimsical trinkets"],
   },
@@ -71,10 +71,10 @@ const Shop = () => {
               Browse Our
             </span>
             <h1 className="font-display text-5xl md:text-6xl text-foreground mb-4">
-              Collections
+              Discover the Unexpected
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Discover something wonderful for everyone on your list
+              Every corner holds a treasure. Every visit, something new.
             </p>
           </motion.div>
         </div>
@@ -109,7 +109,7 @@ const Shop = () => {
                   <h2 className="font-display text-3xl md:text-4xl text-foreground mb-4">
                     {collection.title}
                   </h2>
-                  <p className="text-lg text-muted-foreground mb-6">
+                  <p className="text-lg text-muted-foreground mb-6 italic">
                     {collection.description}
                   </p>
                   <ul className="grid grid-cols-2 gap-2 mb-6">
@@ -118,7 +118,7 @@ const Shop = () => {
                         key={item}
                         className="flex items-center gap-2 text-foreground"
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-terracotta flex-shrink-0" />
                         <span className="text-sm">{item}</span>
                       </li>
                     ))}
