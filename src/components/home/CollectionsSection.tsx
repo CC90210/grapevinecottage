@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import SectionHeading from "@/components/ui/section-heading";
-import homeDecorImg from "@/assets/category-home-decor.jpg";
+import homeDecorImg from "@/assets/store-vintage-decor.jpg";
 import fashionImg from "@/assets/category-fashion.jpg";
 import jewelryImg from "@/assets/category-jewelry.jpg";
 import wellnessImg from "@/assets/category-wellness.jpg";
-import gardenImg from "@/assets/category-garden.jpg";
-import giftsImg from "@/assets/category-gifts.jpg";
+import gardenImg from "@/assets/store-butterfly-markers.jpg";
+import giftsImg from "@/assets/store-friends-sign.jpg";
 
 const collections = [
   {

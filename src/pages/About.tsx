@@ -4,8 +4,8 @@ import { Heart, Users, Sparkles, Gift, ArrowRight } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import SectionHeading from "@/components/ui/section-heading";
 import { Button } from "@/components/ui/button";
-import storefrontImg from "@/assets/about-storefront.jpg";
-import heroImg from "@/assets/hero-shop.jpg";
+import storefrontImg from "@/assets/store-be-mine.jpg";
+import heroImg from "@/assets/store-pitch-black.jpg";
 
 const values = [
   {
