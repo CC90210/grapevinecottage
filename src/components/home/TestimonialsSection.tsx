@@ -6,6 +6,11 @@ import { Button } from "@/components/ui/button";
 
 const testimonials = [
   {
+    quote: "I don't know where you find the things you find, but you can always find something unique and special here.",
+    author: "Happy Customer",
+    rating: 5,
+  },
+  {
     quote: "An absolute gem in downtown Collingwood! The selection is wonderful and the staff is always so helpful.",
     author: "Local Customer",
     rating: 5,
@@ -17,12 +22,12 @@ const testimonials = [
   },
   {
     quote: "My go-to shop for unique gifts. The jewelry selection is beautiful and everything is wrapped to perfection.",
-    author: "Happy Customer",
+    author: "Repeat Customer",
     rating: 5,
   },
   {
     quote: "Such a charming boutique! Every time I visit, I find something special I didn't know I needed.",
-    author: "Repeat Visitor",
+    author: "Collingwood Local",
     rating: 5,
   },
 ];
@@ -53,8 +58,8 @@ const TestimonialsSection = () => {
     <section className="py-20 md:py-28 bg-accent/20">
       <div className="container mx-auto px-4">
         <SectionHeading
-          scriptTitle="Kind Words"
-          title="What Our Customers Say"
+          scriptTitle="Community Voices"
+          title="What People Are Saying"
         />
 
         <div className="max-w-4xl mx-auto relative">

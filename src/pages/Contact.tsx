@@ -46,17 +46,40 @@ const Contact = () => {
               Say Hello
             </span>
             <h1 className="font-display text-5xl md:text-6xl text-foreground mb-4">
-              Get In Touch
+              Come Find Us
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              We'd love to hear from you
+              We'd love to see you in the store
             </p>
           </motion.div>
         </div>
       </section>
 
+      {/* Personal Note from Kim */}
+      <section className="py-12 bg-background">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="max-w-2xl mx-auto text-center bg-secondary/50 rounded-xl p-8"
+          >
+            <p className="text-lg text-muted-foreground mb-4 italic">
+              "I'd love to see you in the store. Stop by, say hello, and let me help 
+              you find that perfect something."
+            </p>
+            <p className="text-lg text-muted-foreground mb-2">
+              If you can't make it in person, feel free to call or reach out. 
+              I'm always happy to help.
+            </p>
+            <p className="font-script text-2xl text-primary">— Kim</p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Main Content */}
-      <section className="py-20 bg-background">
+      <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
             {/* Contact Info */}
@@ -82,6 +105,14 @@ const Contact = () => {
                         191 Hurontario Street, Unit 2<br />
                         Collingwood, Ontario L9Y 2M1
                       </p>
+                      <a
+                        href="https://maps.google.com/?q=191+Hurontario+Street+Unit+2+Collingwood+Ontario+L9Y+2M1"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:text-primary/80 text-sm underline mt-1 inline-block"
+                      >
+                        Get Directions →
+                      </a>
                     </div>
                   </div>
 
@@ -123,7 +154,7 @@ const Contact = () => {
                     <span>Tuesday – Wednesday</span>
                     <span>10 AM – 4 PM</span>
                   </div>
-                  <div className="flex justify-between text-foreground">
+                  <div className="flex justify-between text-foreground font-medium">
                     <span>Thursday</span>
                     <span>10 AM – 5:30 PM</span>
                   </div>
@@ -131,7 +162,7 @@ const Contact = () => {
                     <span>Friday – Saturday</span>
                     <span>10 AM – 4 PM</span>
                   </div>
-                  <div className="flex justify-between text-muted-foreground">
+                  <div className="flex justify-between text-muted-foreground pt-2 border-t border-border/50">
                     <span>Sunday – Monday</span>
                     <span>Closed</span>
                   </div>
@@ -164,6 +195,7 @@ const Contact = () => {
                   >
                     <Instagram className="w-6 h-6 text-primary-foreground" />
                   </a>
+                  <span className="text-muted-foreground">@grapevinecottage</span>
                 </div>
               </div>
             </motion.div>

@@ -11,31 +11,37 @@ import giftsImg from "@/assets/category-gifts.jpg";
 const collections = [
   {
     title: "Home Décor",
+    description: "Things that make your space feel like you",
     image: homeDecorImg,
     link: "/shop#home-decor",
   },
   {
-    title: "Fashion & Accessories",
-    image: fashionImg,
-    link: "/shop#fashion",
-  },
-  {
     title: "Jewelry",
+    description: "Little treasures that tell stories",
     image: jewelryImg,
     link: "/shop#jewelry",
   },
   {
-    title: "Wellness & Crystals",
-    image: wellnessImg,
-    link: "/shop#wellness",
-  },
-  {
-    title: "Garden Treasures",
+    title: "Garden & Outdoor",
+    description: "Magic for your outdoor spaces",
     image: gardenImg,
     link: "/shop#garden",
   },
   {
-    title: "Perfect Gifts",
+    title: "Wellness",
+    description: "Peace for your soul",
+    image: wellnessImg,
+    link: "/shop#wellness",
+  },
+  {
+    title: "Fashion & Accessories",
+    description: "Style that feels as good as it looks",
+    image: fashionImg,
+    link: "/shop#fashion",
+  },
+  {
+    title: "Gifts",
+    description: "The perfect 'just because'",
     image: giftsImg,
     link: "/shop#gifts",
   },
@@ -47,8 +53,8 @@ const CollectionsSection = () => {
       <div className="container mx-auto px-4">
         <SectionHeading
           scriptTitle="Browse Our"
-          title="Featured Collections"
-          subtitle="Discover treasures for every style and occasion"
+          title="Collections"
+          subtitle="Every corner holds a treasure. Every visit, something new."
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -69,11 +75,14 @@ const CollectionsSection = () => {
                   alt={collection.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
-                <div className="absolute inset-0 flex items-end p-6">
-                  <h3 className="font-display text-2xl md:text-3xl text-primary-foreground">
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300" />
+                <div className="absolute inset-0 flex flex-col items-start justify-end p-6">
+                  <h3 className="font-display text-2xl md:text-3xl text-primary-foreground mb-1">
                     {collection.title}
                   </h3>
+                  <p className="text-primary-foreground/80 text-sm md:text-base font-body italic">
+                    {collection.description}
+                  </p>
                 </div>
                 <div className="absolute inset-0 border-2 border-primary-foreground/0 group-hover:border-primary-foreground/30 rounded-lg transition-colors duration-300" />
               </Link>

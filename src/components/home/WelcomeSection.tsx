@@ -6,8 +6,8 @@ const WelcomeSection = () => {
     <section className="py-20 md:py-28 bg-background">
       <div className="container mx-auto px-4">
         <SectionHeading
-          scriptTitle="Welcome to Grapevine Cottage"
-          title="Where Every Visit Feels Like Coming Home"
+          scriptTitle="Come In"
+          title="Stay Awhile"
         />
 
         <motion.div
@@ -18,13 +18,10 @@ const WelcomeSection = () => {
           className="max-w-3xl mx-auto text-center"
         >
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6">
-            Nestled in the heart of downtown Collingwood, our boutique has been delighting 
-            treasure hunters since 2001. Whether you're searching for the perfect gift, 
-            a unique piece of home décor, or a little something just for you – you'll find it here.
+            There's something magical about walking through our doors. Maybe it's the way sunlight catches a crystal. Maybe it's finding the perfect gift you didn't know existed. Or maybe it's just the feeling of being somewhere special.
           </p>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-            Step inside and discover why locals and visitors alike have made 
-            Grapevine Cottage their favorite place to shop.
+            Whatever brings you in, we're glad you're here.
           </p>
         </motion.div>
       </div>
