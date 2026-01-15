@@ -51,7 +51,7 @@ const Header = () => {
           <div className="flex items-center gap-4">
             <div className="hidden md:flex items-center gap-3">
               <a
-                href="https://www.facebook.com/grapevinecottagecollingwood/"
+                href="https://www.facebook.com/p/Grapevine-Cottage-61577257586575/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
@@ -110,7 +110,7 @@ const Header = () => {
               ))}
               <div className="flex items-center gap-4 pt-4 border-t border-border">
                 <a
-                  href="https://www.facebook.com/grapevinecottagecollingwood/"
+                  href="https://www.facebook.com/p/Grapevine-Cottage-61577257586575/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-primary transition-colors"

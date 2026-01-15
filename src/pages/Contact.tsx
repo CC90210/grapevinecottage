@@ -174,11 +174,12 @@ const Contact = () => {
                   Connect With Us
                 </h3>
                 <p className="text-muted-foreground mb-4">
-                  Follow us on social media for new arrivals, behind-the-scenes peeks, and daily inspiration.
+                  We've started fresh with new social pages for this new chapter. Over 15,000 people 
+                  followed our story before — join us as we continue the journey!
                 </p>
                 <div className="flex items-center gap-4">
                   <a
-                    href="https://www.facebook.com/grapevinecottagecollingwood/"
+                    href="https://www.facebook.com/p/Grapevine-Cottage-61577257586575/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-12 h-12 rounded-full bg-primary flex items-center justify-center hover:bg-primary/90 transition-colors"
