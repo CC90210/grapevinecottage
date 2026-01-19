@@ -7,6 +7,7 @@ import jewelryImg from "@/assets/category-jewelry.jpg";
 import wellnessImg from "@/assets/category-wellness.jpg";
 import gardenImg from "@/assets/store-butterfly-markers.jpg";
 import giftsImg from "@/assets/store-friends-sign.jpg";
+import accessoriesImg from "@/assets/store-couples-keychains.jpg";
 
 const collections = [
   {
@@ -22,28 +23,34 @@ const collections = [
     link: "/shop#jewelry",
   },
   {
+    title: "Accessories & Gifts",
+    description: "Keychains, bags & perfect presents",
+    image: accessoriesImg,
+    link: "/shop#accessories",
+  },
+  {
     title: "Garden & Outdoor",
     description: "Magic for your outdoor spaces",
     image: gardenImg,
     link: "/shop#garden",
   },
   {
-    title: "Wellness",
+    title: "Wellness & Spirituality",
     description: "Peace for your soul",
     image: wellnessImg,
     link: "/shop#wellness",
   },
   {
-    title: "Fashion & Accessories",
+    title: "Clothing & Fashion",
     description: "Style that feels as good as it looks",
     image: fashionImg,
     link: "/shop#fashion",
   },
   {
-    title: "Gifts",
+    title: "Seasonal & Holiday",
     description: "The perfect 'just because'",
     image: giftsImg,
-    link: "/shop#gifts",
+    link: "/shop#seasonal",
   },
 ];
 
@@ -57,7 +64,7 @@ const CollectionsSection = () => {
           subtitle="Every corner holds a treasure. Every visit, something new."
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
           {collections.map((collection, index) => (
             <motion.div
               key={collection.title}
@@ -77,10 +84,10 @@ const CollectionsSection = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300" />
                 <div className="absolute inset-0 flex flex-col items-start justify-end p-6">
-                  <h3 className="font-display text-2xl md:text-3xl text-primary-foreground mb-1">
+                  <h3 className="font-display text-xl md:text-2xl text-primary-foreground mb-1">
                     {collection.title}
                   </h3>
-                  <p className="text-primary-foreground/80 text-sm md:text-base font-body italic">
+                  <p className="text-primary-foreground/80 text-sm font-body italic">
                     {collection.description}
                   </p>
                 </div>

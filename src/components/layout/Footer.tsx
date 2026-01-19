@@ -36,6 +36,9 @@ const Footer = () => {
               <Link to="/shop" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm">
                 Collections
               </Link>
+              <Link to="/events" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm">
+                Events
+              </Link>
               <Link to="/visit" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm">
                 Visit Us
               </Link>
@@ -49,13 +52,18 @@ const Footer = () => {
           <div>
             <h4 className="font-display text-lg mb-4">Find Us</h4>
             <div className="space-y-3">
-              <div className="flex items-start gap-3">
+              <a
+                href="https://maps.google.com/?q=191+Hurontario+Street+Unit+2+Collingwood+Ontario+L9Y+2M1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-3 hover:text-primary-foreground transition-colors"
+              >
                 <MapPin className="w-4 h-4 mt-1 flex-shrink-0" />
-                <p className="text-primary-foreground/80 text-sm">
+                <p className="text-primary-foreground/80 text-sm hover:text-primary-foreground">
                   191 Hurontario St, Unit 2<br />
                   Collingwood, ON L9Y 2M1
                 </p>
-              </div>
+              </a>
               <a
                 href="tel:+17054458001"
                 className="flex items-center gap-3 text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm"
