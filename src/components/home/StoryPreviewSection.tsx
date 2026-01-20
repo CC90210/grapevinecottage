@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import storefrontImg from "@/assets/about-storefront.jpg";
+import storefrontImg from "@/assets/product-display-cabinet.jpg";
 
 const StoryPreviewSection = () => {
   return (
