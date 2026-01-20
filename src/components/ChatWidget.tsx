@@ -54,29 +54,36 @@ const ChatWidget = () => {
         action: "sendMessage",
         sessionId: getSessionId(),
         chatInput: userMessage,
+        timestamp: new Date().toISOString(),
+        history: messages.map(msg => ({
+          role: msg.role,
+          content: msg.content
+        }))
       };
 
       console.log("Sending to webhook:", WEBHOOK_URL, payload);
 
       const response = await fetch(WEBHOOK_URL, {
         method: "POST",
-        headers: { 
-          "Content-Type": "text/plain",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
         },
         body: JSON.stringify(payload),
       });
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const data = await response.json();
+      
+      const botResponse = data.output || data.text || data.response || data.message ||
+        (typeof data === "string" ? data : "I'm sorry, could you try that again?");
+
       setMessages((prev) => [
         ...prev,
-        {
-          role: "assistant",
-          content:
-            data.output ||
-            data.text ||
-            data.response ||
-            "I'm sorry, could you try that again?",
-        },
+        { role: "assistant", content: botResponse },
       ]);
     } catch (error) {
       console.error("Chat error:", error);
