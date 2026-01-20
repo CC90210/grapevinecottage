@@ -56,30 +56,67 @@ const ChatWidget = () => {
         chatInput: userMessage,
         timestamp: new Date().toISOString(),
         history: messages.map(msg => ({
-          role: msg.role,
+          role: msg.role === "user" ? "user" : "assistant",
           content: msg.content
         }))
       };
 
-      console.log("Sending to webhook:", WEBHOOK_URL, payload);
+      console.log("Sending to webhook:", payload);
+
+      // Extended timeout for AI responses (30 seconds)
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000);
 
       const response = await fetch(WEBHOOK_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json",
+          "Accept": "application/json, text/plain, */*",
         },
         body: JSON.stringify(payload),
+        signal: controller.signal,
       });
 
+      clearTimeout(timeoutId);
+
+      console.log("Response status:", response.status);
+
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
-      const data = await response.json();
-      
-      const botResponse = data.output || data.text || data.response || data.message ||
-        (typeof data === "string" ? data : "I'm sorry, could you try that again?");
+      // Get raw response text first
+      const rawText = await response.text();
+      console.log("Raw response:", rawText);
+
+      if (!rawText || rawText.trim() === "") {
+        throw new Error("Empty response from server");
+      }
+
+      // Try to parse as JSON, but handle plain text too
+      let botResponse: string;
+
+      try {
+        const jsonData = JSON.parse(rawText);
+        console.log("Parsed JSON:", jsonData);
+        
+        botResponse = jsonData.output || 
+                      jsonData.text || 
+                      jsonData.response || 
+                      jsonData.message ||
+                      jsonData.content ||
+                      (typeof jsonData === "string" ? jsonData : "");
+      } catch {
+        // Not JSON - treat as plain text
+        console.log("Response is plain text, not JSON");
+        botResponse = rawText;
+      }
+
+      if (!botResponse || botResponse.trim() === "") {
+        throw new Error("No message content in response");
+      }
+
+      console.log("Final bot response:", botResponse);
 
       setMessages((prev) => [
         ...prev,
@@ -87,13 +124,23 @@ const ChatWidget = () => {
       ]);
     } catch (error) {
       console.error("Chat error:", error);
+      
+      let errorMessage: string;
+      if (error instanceof Error) {
+        if (error.name === "AbortError") {
+          errorMessage = "Sorry, that took too long! Please try again or call us at (705) 445-8001.";
+        } else if (error.message.includes("Failed to fetch") || error.message.includes("NetworkError")) {
+          errorMessage = "Couldn't connect to the server. Please check your connection or call us at (705) 445-8001.";
+        } else {
+          errorMessage = "Oops! Something went wrong. Feel free to call us at (705) 445-8001!";
+        }
+      } else {
+        errorMessage = "Oops! Something went wrong. Feel free to call us at (705) 445-8001!";
+      }
+      
       setMessages((prev) => [
         ...prev,
-        {
-          role: "assistant",
-          content:
-            "Oops! Something went wrong. Feel free to call us at (705) 445-8001!",
-        },
+        { role: "assistant", content: errorMessage },
       ]);
     } finally {
       setIsLoading(false);
