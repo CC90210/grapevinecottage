@@ -16,8 +16,10 @@ const HeroSection = () => {
         >
           <img
             src={heroImage}
-            alt="Inside Grapevine Cottage gift shop"
+            alt="Grapevine Cottage storefront - unique gift shop in downtown Collingwood Ontario"
             className="w-full h-full object-cover"
+            width={1920}
+            height={1080}
           />
         </motion.div>
         <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/50 to-primary/80" />
@@ -51,13 +53,16 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <span className="font-script text-3xl md:text-4xl text-primary-foreground/90 block mb-4">
-            Welcome to Grapevine Cottage
+            Welcome to
           </span>
           <h1 className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-primary-foreground font-semibold mb-6 leading-tight">
-            Where You Find Things<br />You Never Knew You Wanted
+            Grapevine Cottage
           </h1>
+          <p className="font-body text-xl md:text-2xl text-primary-foreground/90 mb-4">
+            Where You Find Things You Never Knew You Wanted
+          </p>
           <p className="font-body text-lg md:text-xl text-primary-foreground/85 max-w-2xl mx-auto mb-10">
-            A beloved Collingwood treasure since 2001 — unique gifts, unexpected finds, and a warm welcome waiting for you.
+            A beloved Collingwood gift shop since 2001 — unique gifts, handcrafted jewelry, home decor & local artisan treasures in downtown Collingwood, Ontario.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

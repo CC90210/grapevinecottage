@@ -6,7 +6,7 @@ import storefrontImg from "@/assets/product-display-cabinet.jpg";
 
 const StoryPreviewSection = () => {
   return (
-    <section className="py-20 md:py-28 bg-background overflow-hidden">
+    <section className="py-20 md:py-28 bg-background overflow-hidden" aria-labelledby="story-heading">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Image */}
@@ -20,8 +20,11 @@ const StoryPreviewSection = () => {
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-elevated">
               <img
                 src={storefrontImg}
-                alt="Grapevine Cottage storefront"
+                alt="Inside Grapevine Cottage gift shop showing unique home decor and treasures in Collingwood Ontario"
                 className="w-full h-full object-cover"
+                loading="lazy"
+                width={600}
+                height={450}
               />
             </div>
             {/* Decorative frame */}
@@ -40,8 +43,8 @@ const StoryPreviewSection = () => {
             <span className="font-script text-3xl text-primary block mb-2">
               A New Chapter
             </span>
-            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-6">
-              Same Heart, Fresh Energy
+            <h2 id="story-heading" className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-6">
+              About Grapevine Cottage
             </h2>
             <div className="space-y-4 text-muted-foreground text-lg">
               <p>

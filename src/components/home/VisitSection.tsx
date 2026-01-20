@@ -15,12 +15,13 @@ const hours = [
 
 const VisitSection = () => {
   return (
-    <section className="py-20 md:py-28 bg-background">
+    <section className="py-20 md:py-28 bg-background" aria-labelledby="visit-heading">
       <div className="container mx-auto px-4">
         <SectionHeading
           scriptTitle="Come See Us"
-          title="Visit Our Shop"
+          title="Visit Grapevine Cottage in Collingwood"
         />
+        <h2 id="visit-heading" className="sr-only">Visit Grapevine Cottage in Downtown Collingwood Ontario</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Store Hours */}
@@ -69,13 +70,14 @@ const VisitSection = () => {
               <h3 className="font-display text-2xl text-foreground">Find Us</h3>
             </div>
             <div className="space-y-4">
-              <p className="text-foreground">
-                191 Hurontario Street, Unit 2<br />
+              <address className="text-foreground not-italic">
+                <strong>Grapevine Cottage</strong><br />
+                191 Hurontario Street, Unit #2<br />
                 Collingwood, Ontario<br />
                 L9Y 2M1
-              </p>
+              </address>
               <p className="text-muted-foreground text-sm">
-                Located in the heart of Downtown Collingwood
+                Located in the heart of Downtown Collingwood, Ontario
               </p>
               <Button asChild variant="outline" className="w-full">
                 <a
