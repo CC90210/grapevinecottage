@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { contactFormSchema, checkRateLimit } from "@/lib/validation";
 
 const CONTACT_WEBHOOK_URL =
-  "https://n8n.srv993801.hstgr.cloud/webhook/4608e17f-7b99-4a80-bc11-34781dd8376c";
+  "https://n8n.srv993801.hstgr.cloud/webhook/098049e6-9720-4344-a045-1173c17f37ef";
 
 const Contact = () => {
   const { toast } = useToast();
