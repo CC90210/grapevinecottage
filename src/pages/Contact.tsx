@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, Facebook, Instagram, Send } from "lucide-react";
+import { MapPin, Phone, Mail, Facebook, Instagram, Send, AlertCircle } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { contactFormSchema, checkRateLimit } from "@/lib/validation";
+
+const CONTACT_WEBHOOK_URL =
+  "https://n8n.srv993801.hstgr.cloud/webhook/4608e17f-7b99-4a80-bc11-34781dd8376c";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -15,21 +19,95 @@ const Contact = () => {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrors({});
+
+    // Validate with zod schema
+    const validation = contactFormSchema.safeParse(formData);
+    if (!validation.success) {
+      const fieldErrors: Record<string, string> = {};
+      validation.error.errors.forEach((err) => {
+        if (err.path[0]) {
+          fieldErrors[err.path[0] as string] = err.message;
+        }
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+
+    // Check rate limit (5 submissions per hour)
+    if (!checkRateLimit("contact_form", 5, 3600000)) {
+      toast({
+        title: "Too Many Requests",
+        description: "Please wait before sending another message, or call us at (705) 445-8001.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. We'll get back to you soon!",
-    });
-    
-    setFormData({ name: "", email: "", message: "" });
-    setIsSubmitting(false);
+
+    try {
+      const payload = {
+        action: "contactForm",
+        name: validation.data.name,
+        email: validation.data.email,
+        message: validation.data.message,
+        timestamp: new Date().toISOString(),
+        source: "website_contact_form",
+      };
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000);
+
+      const response = await fetch(CONTACT_WEBHOOK_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json, text/plain, */*",
+        },
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        throw new Error(`Failed to send message`);
+      }
+
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for reaching out. We'll get back to you soon!",
+      });
+
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error("Contact form error:", error);
+      
+      // Provide helpful fallback instead of just failing
+      toast({
+        title: "Couldn't Send Message",
+        description: "Please call us at (705) 445-8001 or message us on Facebook/Instagram.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    if (errors[field]) {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
+    }
   };
 
   return (
@@ -212,7 +290,7 @@ const Contact = () => {
                 <h2 className="font-display text-2xl text-foreground mb-6">
                   Send Us a Message
                 </h2>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6" noValidate>
                   <div>
                     <label
                       htmlFor="name"
@@ -224,13 +302,19 @@ const Contact = () => {
                       id="name"
                       type="text"
                       value={formData.name}
-                      onChange={(e) =>
-                        setFormData({ ...formData, name: e.target.value })
-                      }
-                      required
-                      className="bg-background"
+                      onChange={(e) => handleInputChange("name", e.target.value)}
+                      className={`bg-background ${errors.name ? "border-red-500" : ""}`}
                       placeholder="Enter your name"
+                      maxLength={100}
+                      aria-invalid={!!errors.name}
+                      aria-describedby={errors.name ? "name-error" : undefined}
                     />
+                    {errors.name && (
+                      <p id="name-error" className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                        <AlertCircle className="w-4 h-4" />
+                        {errors.name}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <label
@@ -243,13 +327,19 @@ const Contact = () => {
                       id="email"
                       type="email"
                       value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
-                      required
-                      className="bg-background"
+                      onChange={(e) => handleInputChange("email", e.target.value)}
+                      className={`bg-background ${errors.email ? "border-red-500" : ""}`}
                       placeholder="Enter your email"
+                      maxLength={255}
+                      aria-invalid={!!errors.email}
+                      aria-describedby={errors.email ? "email-error" : undefined}
                     />
+                    {errors.email && (
+                      <p id="email-error" className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                        <AlertCircle className="w-4 h-4" />
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <label
@@ -261,14 +351,20 @@ const Contact = () => {
                     <Textarea
                       id="message"
                       value={formData.message}
-                      onChange={(e) =>
-                        setFormData({ ...formData, message: e.target.value })
-                      }
-                      required
+                      onChange={(e) => handleInputChange("message", e.target.value)}
                       rows={5}
-                      className="bg-background resize-none"
+                      className={`bg-background resize-none ${errors.message ? "border-red-500" : ""}`}
                       placeholder="How can we help you?"
+                      maxLength={2000}
+                      aria-invalid={!!errors.message}
+                      aria-describedby={errors.message ? "message-error" : undefined}
                     />
+                    {errors.message && (
+                      <p id="message-error" className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                        <AlertCircle className="w-4 h-4" />
+                        {errors.message}
+                      </p>
+                    )}
                   </div>
                   <Button
                     type="submit"
