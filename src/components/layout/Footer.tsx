@@ -3,7 +3,7 @@ import { Facebook, Instagram, MapPin, Phone, Heart } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-primary-foreground">
+    <footer className="bg-primary text-primary-foreground" role="contentinfo">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           {/* Logo & Tagline */}
@@ -116,7 +116,7 @@ const Footer = () => {
       <div className="border-t border-primary-foreground/10">
         <div className="container mx-auto px-4 py-6">
           <p className="text-center text-primary-foreground/60 text-sm">
-            © 2025 Grapevine Cottage. All rights reserved.
+            © 2025 Grapevine Cottage. A beloved Collingwood gift shop since 2001. All rights reserved.
           </p>
         </div>
       </div>

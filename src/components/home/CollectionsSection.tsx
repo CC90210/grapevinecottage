@@ -56,12 +56,12 @@ const collections = [
 
 const CollectionsSection = () => {
   return (
-    <section className="py-20 md:py-28 bg-secondary">
+    <section className="py-20 md:py-28 bg-secondary" aria-labelledby="collections-heading">
       <div className="container mx-auto px-4">
         <SectionHeading
           scriptTitle="Browse Our"
-          title="Collections"
-          subtitle="Every corner holds a treasure. Every visit, something new."
+          title="Collections at Grapevine Cottage"
+          subtitle="Every corner holds a treasure. Every visit, something new to discover in Collingwood."
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
@@ -79,8 +79,11 @@ const CollectionsSection = () => {
               >
                 <img
                   src={collection.image}
-                  alt={collection.title}
+                  alt={`${collection.title} at Grapevine Cottage Collingwood`}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                  width={400}
+                  height={400}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300" />
                 <div className="absolute inset-0 flex flex-col items-start justify-end p-6">
