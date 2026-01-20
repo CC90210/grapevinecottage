@@ -19,7 +19,7 @@ const ChatWidget = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const WEBHOOK_URL =
-    "https://n8n.srv993801.hstgr.cloud/webhook/6dc09240-bee8-440d-a1c7-e8483212baea/chat";
+    "https://n8n.srv993801.hstgr.cloud/webhook/4608e17f-7b99-4a80-bc11-34781dd8376c";
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
