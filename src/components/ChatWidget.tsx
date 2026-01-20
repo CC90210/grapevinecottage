@@ -50,14 +50,20 @@ const ChatWidget = () => {
     setIsLoading(true);
 
     try {
+      const payload = {
+        action: "sendMessage",
+        sessionId: getSessionId(),
+        chatInput: userMessage,
+      };
+
+      console.log("Sending to webhook:", WEBHOOK_URL, payload);
+
       const response = await fetch(WEBHOOK_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "sendMessage",
-          sessionId: getSessionId(),
-          chatInput: userMessage,
-        }),
+        headers: { 
+          "Content-Type": "text/plain",
+        },
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
