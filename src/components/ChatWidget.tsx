@@ -169,8 +169,11 @@ const ChatWidget = () => {
     }
   };
 
-  // Don't render until mounted (ensures document.body exists)
-  if (!mounted) return null;
+  // Get the portal container - fallback to body if not found
+  const portalContainer = document.getElementById('chat-portal-root') || document.body;
+  
+  // Always render - don't wait for mounted state
+  if (typeof window === 'undefined') return null;
 
   const chatContent = (
     <>
@@ -408,8 +411,8 @@ const ChatWidget = () => {
     </>
   );
 
-  // Render directly to document.body using Portal - completely outside React app tree
-  return createPortal(chatContent, document.body);
+  // Render to portal container
+  return createPortal(chatContent, portalContainer);
 };
 
 export default ChatWidget;
