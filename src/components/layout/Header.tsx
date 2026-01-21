@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Facebook, Instagram } from "lucide-react";
+import { Menu, X, Facebook, Instagram, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
@@ -11,6 +11,7 @@ const navLinks = [
   { name: "Events", path: "/events" },
   { name: "Visit Us", path: "/visit" },
   { name: "Contact", path: "/contact" },
+  { name: "Chat", path: "/chat", icon: MessageCircle, highlight: true },
 ];
 
 const Header = () => {
@@ -100,12 +101,15 @@ const Header = () => {
                   key={link.path}
                   to={link.path}
                   onClick={() => setIsOpen(false)}
-                  className={`font-body text-lg py-2 transition-colors ${
-                    location.pathname === link.path
+                  className={`font-body text-lg py-2 transition-colors flex items-center gap-2 ${
+                    link.highlight
+                      ? "text-primary font-semibold"
+                      : location.pathname === link.path
                       ? "text-primary font-medium"
                       : "text-foreground/80"
                   }`}
                 >
+                  {link.icon && <link.icon className="w-5 h-5" />}
                   {link.name}
                 </Link>
               ))}
