@@ -10,6 +10,7 @@ import Visit from "./pages/Visit";
 import Contact from "./pages/Contact";
 import Events from "./pages/Events";
 import NotFound from "./pages/NotFound";
+import ChatWidget from "./components/ChatWidget";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,8 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+      {/* ChatWidget rendered at root level, outside all layouts for guaranteed visibility */}
+      <ChatWidget />
     </TooltipProvider>
   </QueryClientProvider>
 );
