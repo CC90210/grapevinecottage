@@ -218,8 +218,24 @@
   }
 }
 
-/* Ensure no transforms break fixed positioning */
+/* CRITICAL: Ensure fixed elements rendered via portal are always visible */
+#chat-toggle-btn,
+#chat-window {
+  position: fixed !important;
+  z-index: 2147483647 !important;
+  transform: translateZ(0) !important;
+  -webkit-transform: translateZ(0) !important;
+}
+
+/* Prevent any element from clipping the chat widget */
+html, body {
+  overflow-x: hidden;
+  overflow-y: auto !important;
+}
+
+/* Ensure #root doesn't create clipping context */
 #root {
+  overflow: visible !important;
   transform: none !important;
   -webkit-transform: none !important;
 }
