@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { MessageCircle, X, Send } from "lucide-react";
 import { chatMessageSchema, parseWebhookResponse, checkRateLimit } from "@/lib/validation";
 
@@ -19,8 +20,14 @@ const ChatWidget = () => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [validationError, setValidationError] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Ensure component only renders after mount (for portal)
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -154,7 +161,10 @@ const ChatWidget = () => {
     }
   };
 
-  return (
+  // Don't render until mounted (needed for portal)
+  if (!mounted) return null;
+
+  const chatContent = (
     <>
       {/* Global styles for the chat widget - using !important for iOS Safari compatibility */}
       <style>{`
@@ -247,7 +257,7 @@ const ChatWidget = () => {
         }
       `}</style>
 
-      {/* Chat Toggle Button - Pure HTML button for maximum iOS compatibility */}
+      {/* Chat Toggle Button */}
       <button
         id="grapevine-chat-button"
         onClick={() => setIsOpen(!isOpen)}
@@ -360,7 +370,7 @@ const ChatWidget = () => {
                 className="flex-1 px-5 py-3 text-sm rounded-full border outline-none transition-colors disabled:opacity-50"
                 style={{ 
                   borderColor: validationError ? "#ef4444" : "#E8E0E8",
-                  fontSize: "16px", // Prevents iOS zoom on focus
+                  fontSize: "16px",
                 }}
               />
               <button
@@ -379,6 +389,9 @@ const ChatWidget = () => {
       )}
     </>
   );
+
+  // Use portal to render directly to document.body, bypassing all stacking contexts
+  return createPortal(chatContent, document.body);
 };
 
 export default ChatWidget;
