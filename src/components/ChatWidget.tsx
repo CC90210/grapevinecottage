@@ -19,8 +19,17 @@ const ChatWidget = () => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [validationError, setValidationError] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Detect mobile on mount and window resize
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 480);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -152,8 +161,6 @@ const ChatWidget = () => {
       setValidationError(null);
     }
   };
-
-  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 480;
 
   return (
     <>
