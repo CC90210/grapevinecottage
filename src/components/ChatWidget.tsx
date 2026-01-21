@@ -161,166 +161,160 @@ const ChatWidget = () => {
     }
   };
 
-  // Don't render until mounted (needed for portal)
-  if (!mounted) return null;
+  // Get the portal root outside React's main root
+  const portalRoot = document.getElementById('chat-portal-root');
+  
+  // Don't render until mounted and portal root exists
+  if (!mounted || !portalRoot) return null;
 
   const chatContent = (
     <>
-      {/* Global styles for the chat widget - using !important for iOS Safari compatibility */}
-      <style>{`
-        #grapevine-chat-button {
-          position: fixed !important;
-          bottom: 20px !important;
-          right: 20px !important;
-          width: 60px !important;
-          height: 60px !important;
-          border-radius: 50% !important;
-          border: none !important;
-          cursor: pointer !important;
-          display: flex !important;
-          align-items: center !important;
-          justify-content: center !important;
-          z-index: 2147483647 !important;
-          background: linear-gradient(135deg, #6B4E71 0%, #8B6B8F 100%) !important;
-          box-shadow: 0 4px 20px rgba(107, 78, 113, 0.5) !important;
-          -webkit-transform: translateZ(0) !important;
-          transform: translateZ(0) !important;
-          -webkit-tap-highlight-color: transparent !important;
-          touch-action: manipulation !important;
-        }
-        
-        #grapevine-chat-button:active {
-          transform: scale(0.95) translateZ(0) !important;
-        }
-        
-        #grapevine-chat-window {
-          position: fixed !important;
-          z-index: 2147483646 !important;
-          background: #FDF8F3 !important;
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2) !important;
-          display: flex !important;
-          flex-direction: column !important;
-          -webkit-transform: translateZ(0) !important;
-          transform: translateZ(0) !important;
-        }
-        
-        /* Desktop styles */
-        @media (min-width: 481px) {
-          #grapevine-chat-window {
-            bottom: 90px !important;
-            right: 20px !important;
-            width: 380px !important;
-            height: 520px !important;
-            max-height: 70vh !important;
-            border-radius: 16px !important;
-          }
-        }
-        
-        /* Mobile styles - full screen */
-        @media (max-width: 480px) {
-          #grapevine-chat-button {
-            bottom: 16px !important;
-            right: 16px !important;
-            width: 56px !important;
-            height: 56px !important;
-          }
-          
-          #grapevine-chat-window {
-            top: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            bottom: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            max-height: 100% !important;
-            border-radius: 0 !important;
-          }
-        }
-        
-        /* iOS safe area support */
-        @supports (padding-bottom: env(safe-area-inset-bottom)) {
-          #grapevine-chat-button {
-            bottom: calc(20px + env(safe-area-inset-bottom, 0px)) !important;
-            right: calc(20px + env(safe-area-inset-right, 0px)) !important;
-          }
-          
-          @media (max-width: 480px) {
-            #grapevine-chat-button {
-              bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important;
-              right: calc(16px + env(safe-area-inset-right, 0px)) !important;
-            }
-            
-            #grapevine-chat-window {
-              padding-bottom: env(safe-area-inset-bottom, 0px) !important;
-            }
-          }
-        }
-      `}</style>
-
-      {/* Chat Toggle Button */}
+      {/* Chat Toggle Button - inline styles only, no classes that could be overridden */}
       <button
         id="grapevine-chat-button"
         onClick={() => setIsOpen(!isOpen)}
         aria-label={isOpen ? "Close chat" : "Open chat"}
         type="button"
+        style={{
+          position: 'fixed',
+          bottom: '20px',
+          right: '20px',
+          width: '60px',
+          height: '60px',
+          borderRadius: '50%',
+          border: 'none',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 2147483647,
+          background: 'linear-gradient(135deg, #6B4E71 0%, #8B6B8F 100%)',
+          boxShadow: '0 4px 20px rgba(107, 78, 113, 0.5)',
+          transform: 'none',
+          willChange: 'auto',
+          contain: 'none',
+          WebkitTapHighlightColor: 'transparent',
+          touchAction: 'manipulation',
+        }}
       >
         {isOpen ? (
-          <X className="w-6 h-6 text-white" style={{ pointerEvents: 'none' }} />
+          <X style={{ width: 24, height: 24, color: 'white', pointerEvents: 'none' }} />
         ) : (
-          <MessageCircle className="w-6 h-6 text-white" style={{ pointerEvents: 'none' }} />
+          <MessageCircle style={{ width: 24, height: 24, color: 'white', pointerEvents: 'none' }} />
         )}
       </button>
 
       {/* Chat Window */}
       {isOpen && (
-        <div id="grapevine-chat-window">
+        <div
+          id="grapevine-chat-window"
+          style={{
+            position: 'fixed',
+            bottom: window.innerWidth <= 480 ? '0' : '90px',
+            right: window.innerWidth <= 480 ? '0' : '20px',
+            left: window.innerWidth <= 480 ? '0' : 'auto',
+            top: window.innerWidth <= 480 ? '0' : 'auto',
+            width: window.innerWidth <= 480 ? '100%' : '380px',
+            height: window.innerWidth <= 480 ? '100%' : '520px',
+            maxHeight: window.innerWidth <= 480 ? '100%' : '70vh',
+            borderRadius: window.innerWidth <= 480 ? '0' : '16px',
+            zIndex: 2147483646,
+            background: '#FDF8F3',
+            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.2)',
+            display: 'flex',
+            flexDirection: 'column',
+            transform: 'none',
+            willChange: 'auto',
+            contain: 'none',
+          }}
+        >
           {/* Header */}
           <div
-            className="flex items-center justify-between px-5 py-4 shrink-0"
             style={{
-              background: "linear-gradient(135deg, #6B4E71 0%, #8B6B8F 100%)",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '16px 20px',
+              flexShrink: 0,
+              background: 'linear-gradient(135deg, #6B4E71 0%, #8B6B8F 100%)',
+              borderRadius: window.innerWidth <= 480 ? '0' : '16px 16px 0 0',
             }}
           >
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-xl">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '50%',
+                  background: 'rgba(255,255,255,0.2)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '20px',
+                }}
+              >
                 🍇
               </div>
               <div>
-                <h3 className="font-semibold text-white text-base">
+                <h3 style={{ margin: 0, fontWeight: 600, color: 'white', fontSize: '16px' }}>
                   Grapevine Cottage
                 </h3>
-                <p className="text-white/90 text-xs">Chat with Kim ✨</p>
+                <p style={{ margin: 0, color: 'rgba(255,255,255,0.9)', fontSize: '12px' }}>
+                  Chat with Kim ✨
+                </p>
               </div>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-white/80 hover:text-white transition-colors p-2"
-              aria-label="Close chat"
               type="button"
+              aria-label="Close chat"
+              style={{
+                background: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '8px',
+                color: 'rgba(255,255,255,0.8)',
+              }}
             >
-              <X className="w-5 h-5" />
+              <X style={{ width: 20, height: 20, color: 'white' }} />
             </button>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3" style={{ minHeight: 0 }}>
+          <div
+            style={{
+              flex: 1,
+              overflowY: 'auto',
+              padding: '16px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '12px',
+              minHeight: 0,
+            }}
+          >
             {messages.map((msg, idx) => (
               <div
                 key={idx}
-                className={`max-w-[85%] px-4 py-3 text-sm leading-relaxed ${
-                  msg.role === "user"
-                    ? "ml-auto rounded-2xl rounded-br-sm text-white"
-                    : "mr-auto rounded-2xl rounded-bl-sm border"
-                }`}
-                style={
-                  msg.role === "user"
-                    ? { background: "#6B4E71" }
-                    : {
-                        background: "#FFFFFF",
-                        color: "#3D3D3D",
-                        borderColor: "#E8E0E8",
+                style={{
+                  maxWidth: '85%',
+                  padding: '12px 16px',
+                  fontSize: '14px',
+                  lineHeight: 1.5,
+                  ...(msg.role === 'user'
+                    ? {
+                        marginLeft: 'auto',
+                        borderRadius: '16px 16px 4px 16px',
+                        background: '#6B4E71',
+                        color: 'white',
                       }
-                }
+                    : {
+                        marginRight: 'auto',
+                        borderRadius: '16px 16px 16px 4px',
+                        background: 'white',
+                        color: '#3D3D3D',
+                        border: '1px solid #E8E0E8',
+                      }),
+                }}
               >
                 {msg.content}
               </div>
@@ -328,20 +322,46 @@ const ChatWidget = () => {
 
             {isLoading && (
               <div
-                className="mr-auto rounded-2xl px-4 py-3 border flex gap-1 items-center"
-                style={{ background: "#FFFFFF", borderColor: "#E8E0E8" }}
+                style={{
+                  marginRight: 'auto',
+                  borderRadius: '16px',
+                  padding: '12px 16px',
+                  background: 'white',
+                  border: '1px solid #E8E0E8',
+                  display: 'flex',
+                  gap: '4px',
+                  alignItems: 'center',
+                }}
               >
                 <span
-                  className="w-2 h-2 rounded-full animate-bounce"
-                  style={{ background: "#6B4E71", animationDelay: "0ms" }}
+                  style={{
+                    width: '8px',
+                    height: '8px',
+                    borderRadius: '50%',
+                    background: '#6B4E71',
+                    animation: 'bounce 1s infinite',
+                    animationDelay: '0ms',
+                  }}
                 />
                 <span
-                  className="w-2 h-2 rounded-full animate-bounce"
-                  style={{ background: "#6B4E71", animationDelay: "150ms" }}
+                  style={{
+                    width: '8px',
+                    height: '8px',
+                    borderRadius: '50%',
+                    background: '#6B4E71',
+                    animation: 'bounce 1s infinite',
+                    animationDelay: '150ms',
+                  }}
                 />
                 <span
-                  className="w-2 h-2 rounded-full animate-bounce"
-                  style={{ background: "#6B4E71", animationDelay: "300ms" }}
+                  style={{
+                    width: '8px',
+                    height: '8px',
+                    borderRadius: '50%',
+                    background: '#6B4E71',
+                    animation: 'bounce 1s infinite',
+                    animationDelay: '300ms',
+                  }}
                 />
               </div>
             )}
@@ -352,13 +372,23 @@ const ChatWidget = () => {
           {/* Input Area */}
           <form
             onSubmit={sendMessage}
-            className="flex flex-col gap-2 p-4 border-t bg-white shrink-0"
-            style={{ borderColor: "#E8E0E8" }}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '8px',
+              padding: '16px',
+              borderTop: '1px solid #E8E0E8',
+              background: 'white',
+              flexShrink: 0,
+              paddingBottom: window.innerWidth <= 480 ? 'max(16px, env(safe-area-inset-bottom))' : '16px',
+            }}
           >
             {validationError && (
-              <p className="text-xs text-red-500 px-2">{validationError}</p>
+              <p style={{ fontSize: '12px', color: '#ef4444', margin: 0, padding: '0 8px' }}>
+                {validationError}
+              </p>
             )}
-            <div className="flex gap-3">
+            <div style={{ display: 'flex', gap: '12px' }}>
               <input
                 ref={inputRef}
                 type="text"
@@ -367,21 +397,34 @@ const ChatWidget = () => {
                 placeholder="Type your message..."
                 disabled={isLoading}
                 maxLength={1000}
-                className="flex-1 px-5 py-3 text-sm rounded-full border outline-none transition-colors disabled:opacity-50"
-                style={{ 
-                  borderColor: validationError ? "#ef4444" : "#E8E0E8",
-                  fontSize: "16px",
+                style={{
+                  flex: 1,
+                  padding: '12px 20px',
+                  fontSize: '16px', // Prevent iOS zoom
+                  borderRadius: '9999px',
+                  border: `1px solid ${validationError ? '#ef4444' : '#E8E0E8'}`,
+                  outline: 'none',
+                  opacity: isLoading ? 0.5 : 1,
                 }}
               />
               <button
                 type="submit"
                 disabled={!input.trim() || isLoading}
-                className="w-11 h-11 rounded-full flex items-center justify-center transition-all disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
                 style={{
-                  background: input.trim() && !isLoading ? "#6B4E71" : "#C4B8C6",
+                  width: '44px',
+                  height: '44px',
+                  borderRadius: '50%',
+                  border: 'none',
+                  cursor: !input.trim() || isLoading ? 'not-allowed' : 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                  background: input.trim() && !isLoading ? '#6B4E71' : '#C4B8C6',
+                  opacity: !input.trim() || isLoading ? 0.5 : 1,
                 }}
               >
-                <Send className="w-5 h-5 text-white" />
+                <Send style={{ width: 20, height: 20, color: 'white' }} />
               </button>
             </div>
           </form>
@@ -390,8 +433,8 @@ const ChatWidget = () => {
     </>
   );
 
-  // Use portal to render directly to document.body, bypassing all stacking contexts
-  return createPortal(chatContent, document.body);
+  // Render to separate portal root OUTSIDE React's main root
+  return createPortal(chatContent, portalRoot);
 };
 
 export default ChatWidget;
