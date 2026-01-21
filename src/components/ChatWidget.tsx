@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { MessageCircle, X, Send } from "lucide-react";
 
 interface Message {
@@ -75,42 +76,43 @@ const ChatWidget = () => {
     }
   };
 
-  // Simple inline styles - no external CSS dependencies
-  const buttonStyle: React.CSSProperties = {
-    position: 'fixed',
-    bottom: 20,
-    right: 20,
-    width: 60,
-    height: 60,
-    borderRadius: '50%',
-    border: 'none',
-    cursor: 'pointer',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 99999,
-    background: 'linear-gradient(135deg, #6B4E71 0%, #8B6B8F 100%)',
-    boxShadow: '0 4px 20px rgba(107, 78, 113, 0.5)',
-  };
-
-  const windowStyle: React.CSSProperties = {
-    position: 'fixed',
-    bottom: 0,
-    right: 0,
-    left: 0,
-    top: 0,
-    zIndex: 99998,
-    background: '#FDF8F3',
-    display: 'flex',
-    flexDirection: 'column',
-  };
-
-  return (
-    <>
+  // Critical: These styles MUST use !important to override any inherited transforms
+  const chatContent = (
+    <div
+      id="chat-widget-container"
+      style={{
+        position: 'fixed',
+        bottom: 0,
+        right: 0,
+        zIndex: 2147483647,
+        transform: 'none',
+        WebkitTransform: 'none',
+        willChange: 'auto',
+        contain: 'none',
+        isolation: 'isolate',
+      }}
+    >
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        style={buttonStyle}
+        style={{
+          position: 'fixed',
+          bottom: 20,
+          right: 20,
+          width: 60,
+          height: 60,
+          borderRadius: '50%',
+          border: 'none',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 2147483647,
+          background: 'linear-gradient(135deg, #6B4E71 0%, #8B6B8F 100%)',
+          boxShadow: '0 4px 20px rgba(107, 78, 113, 0.5)',
+          transform: 'none',
+          WebkitTransform: 'none',
+        }}
         aria-label="Chat"
       >
         {isOpen ? (
@@ -122,7 +124,19 @@ const ChatWidget = () => {
 
       {/* Chat Window - Full screen on mobile */}
       {isOpen && (
-        <div style={windowStyle}>
+        <div style={{
+          position: 'fixed',
+          bottom: 0,
+          right: 0,
+          left: 0,
+          top: 0,
+          zIndex: 2147483646,
+          background: '#FDF8F3',
+          display: 'flex',
+          flexDirection: 'column',
+          transform: 'none',
+          WebkitTransform: 'none',
+        }}>
           {/* Header */}
           <div style={{
             display: 'flex',
@@ -245,8 +259,11 @@ const ChatWidget = () => {
           </form>
         </div>
       )}
-    </>
+    </div>
   );
+
+  // Render directly to document.body via portal - completely outside React tree
+  return createPortal(chatContent, document.body);
 };
 
 export default ChatWidget;
