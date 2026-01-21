@@ -149,11 +149,14 @@ const ChatWidget = () => {
 
   return (
     <>
-      {/* Chat Toggle Button */}
+      {/* Chat Toggle Button - Mobile optimized */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 w-[60px] h-[60px] rounded-full z-[9998] flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200"
+        className="fixed w-14 h-14 sm:w-[60px] sm:h-[60px] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200"
         style={{
+          bottom: "max(1.5rem, env(safe-area-inset-bottom, 0px) + 1rem)",
+          right: "max(1.5rem, env(safe-area-inset-right, 0px) + 1rem)",
+          zIndex: 99999,
           background: "linear-gradient(135deg, #6B4E71 0%, #8B6B8F 100%)",
           boxShadow: "0 4px 20px rgba(107, 78, 113, 0.4)",
         }}
@@ -168,7 +171,7 @@ const ChatWidget = () => {
         )}
       </motion.button>
 
-      {/* Chat Window */}
+      {/* Chat Window - Mobile optimized */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -176,8 +179,9 @@ const ChatWidget = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-24 right-6 w-[380px] max-w-[calc(100vw-48px)] h-[520px] max-h-[70vh] rounded-2xl overflow-hidden z-[9999] flex flex-col shadow-2xl md:right-6 md:bottom-24"
+            className="chat-window-container fixed rounded-2xl overflow-hidden flex flex-col shadow-2xl"
             style={{
+              zIndex: 99998,
               background: "#FDF8F3",
               boxShadow: "0 10px 40px rgba(0, 0, 0, 0.15)",
             }}
@@ -293,17 +297,35 @@ const ChatWidget = () => {
         )}
       </AnimatePresence>
 
-      {/* Mobile fullscreen styles */}
+      {/* Mobile-optimized styles */}
       <style>{`
+        .chat-window-container {
+          bottom: 5.5rem;
+          right: 1.5rem;
+          width: 380px;
+          max-width: calc(100vw - 3rem);
+          height: 520px;
+          max-height: 70vh;
+        }
+        
         @media (max-width: 480px) {
-          .fixed.bottom-24.right-6 {
+          .chat-window-container {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
             width: 100% !important;
             max-width: 100% !important;
             height: 100% !important;
             max-height: 100% !important;
-            bottom: 0 !important;
-            right: 0 !important;
             border-radius: 0 !important;
+          }
+        }
+        
+        @supports (padding: env(safe-area-inset-bottom)) {
+          .chat-window-container {
+            padding-bottom: env(safe-area-inset-bottom, 0px);
           }
         }
       `}</style>
