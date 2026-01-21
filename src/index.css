@@ -218,83 +218,18 @@
   }
 }
 
-/* CRITICAL: Prevent transforms on main app containers that break fixed positioning */
-#root,
-#root > *,
-.min-h-screen,
-main,
-[class*="layout"],
-[class*="container"],
-[class*="wrapper"] {
+/* Prevent parent containers from breaking fixed positioning */
+#root {
   transform: none !important;
   will-change: auto !important;
-  contain: none !important;
-  overflow-x: visible !important;
-  overflow-y: visible !important;
 }
 
-/* Specifically override any flex/scroll containers */
-.min-h-screen.flex.flex-col,
-.flex-1 {
-  overflow: visible !important;
-  height: auto !important;
-  min-height: auto !important;
-  max-height: none !important;
-  position: static !important;
-}
-
-/* Chat Portal Root - completely isolated from React */
-#chat-portal-root {
+/* Chat widget portal - ensure visibility on all devices */
+body > button[aria-label="Open chat"],
+body > button[aria-label="Close chat"] {
   position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 0 !important;
-  height: 0 !important;
-  overflow: visible !important;
   z-index: 2147483647 !important;
-  transform: none !important;
-  will-change: auto !important;
-  contain: none !important;
-  pointer-events: none !important;
-}
-
-/* Chat Widget - Force visibility with highest specificity */
-#grapevine-chat-button,
-#grapevine-chat-window {
-  position: fixed !important;
-  opacity: 1 !important;
-  visibility: visible !important;
   pointer-events: auto !important;
-  transform: none !important;
-  will-change: auto !important;
-  contain: none !important;
-  animation: none !important;
-  transition: none !important;
-}
-
-/* Chat button loading animation */
-@keyframes chatBounce {
-  0%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-6px); }
-}
-
-/* Mobile-specific chat button positioning */
-@media (max-width: 480px) {
-  #grapevine-chat-button {
-    bottom: max(20px, env(safe-area-inset-bottom)) !important;
-    right: 16px !important;
-    width: 56px !important;
-    height: 56px !important;
-  }
-  
-  #grapevine-chat-window {
-    bottom: 0 !important;
-    right: 0 !important;
-    left: 0 !important;
-    top: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    max-height: 100% !important;
-    border-radius: 0 !important;
-  }
+  visibility: visible !important;
+  opacity: 1 !important;
 }

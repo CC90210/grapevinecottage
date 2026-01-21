@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { MessageCircle, X, Send } from "lucide-react";
 import { chatMessageSchema, parseWebhookResponse, checkRateLimit } from "@/lib/validation";
 
@@ -20,8 +21,14 @@ const ChatWidget = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [validationError, setValidationError] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Ensure component is mounted before rendering portal
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Detect mobile on mount and window resize
   useEffect(() => {
@@ -162,28 +169,34 @@ const ChatWidget = () => {
     }
   };
 
-  return (
+  // Don't render until mounted (ensures document.body exists)
+  if (!mounted) return null;
+
+  const chatContent = (
     <>
-      {/* Chat Toggle Button */}
+      {/* Chat Toggle Button - Always visible */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         aria-label={isOpen ? "Close chat" : "Open chat"}
         type="button"
         style={{
           position: 'fixed',
-          bottom: isMobile ? '16px' : '20px',
-          right: isMobile ? '16px' : '20px',
-          width: isMobile ? '56px' : '60px',
-          height: isMobile ? '56px' : '60px',
+          bottom: isMobile ? '20px' : '24px',
+          right: isMobile ? '16px' : '24px',
+          width: '60px',
+          height: '60px',
           borderRadius: '50%',
           border: 'none',
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          zIndex: 999999,
+          zIndex: 2147483647,
           background: 'linear-gradient(135deg, #6B4E71 0%, #8B6B8F 100%)',
           boxShadow: '0 4px 20px rgba(107, 78, 113, 0.5)',
+          transform: 'none',
+          WebkitTransform: 'none',
+          pointerEvents: 'auto',
         }}
       >
         {isOpen ? (
@@ -198,19 +211,22 @@ const ChatWidget = () => {
         <div
           style={{
             position: 'fixed',
-            bottom: isMobile ? '0' : '90px',
-            right: isMobile ? '0' : '20px',
+            bottom: isMobile ? '0' : '96px',
+            right: isMobile ? '0' : '24px',
             left: isMobile ? '0' : 'auto',
             top: isMobile ? '0' : 'auto',
             width: isMobile ? '100%' : '380px',
             height: isMobile ? '100%' : '520px',
             maxHeight: isMobile ? '100%' : '70vh',
             borderRadius: isMobile ? '0' : '16px',
-            zIndex: 999998,
+            zIndex: 2147483646,
             background: '#FDF8F3',
             boxShadow: '0 10px 40px rgba(0, 0, 0, 0.2)',
             display: 'flex',
             flexDirection: 'column' as const,
+            transform: 'none',
+            WebkitTransform: 'none',
+            pointerEvents: 'auto',
           }}
         >
           {/* Header */}
@@ -339,6 +355,7 @@ const ChatWidget = () => {
               background: 'white',
               flexShrink: 0,
               paddingBottom: isMobile ? 'max(16px, env(safe-area-inset-bottom))' : '16px',
+              borderRadius: isMobile ? '0' : '0 0 16px 16px',
             }}
           >
             {validationError && (
@@ -390,6 +407,9 @@ const ChatWidget = () => {
       )}
     </>
   );
+
+  // Render directly to document.body using Portal - completely outside React app tree
+  return createPortal(chatContent, document.body);
 };
 
 export default ChatWidget;
