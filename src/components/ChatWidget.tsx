@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { createPortal } from "react-dom";
 import { MessageCircle, X, Send } from "lucide-react";
 import { chatMessageSchema, parseWebhookResponse, checkRateLimit } from "@/lib/validation";
 
@@ -20,14 +19,8 @@ const ChatWidget = () => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [validationError, setValidationError] = useState<string | null>(null);
-  const [mounted, setMounted] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  // Ensure component only renders after mount (for portal)
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -39,7 +32,6 @@ const ChatWidget = () => {
     }
   }, [isOpen]);
 
-  // Prevent body scroll when chat is open on mobile
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -161,68 +153,57 @@ const ChatWidget = () => {
     }
   };
 
-  // Render directly to document.body - simplest approach
-  if (!mounted) return null;
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 480;
 
-  const chatContent = (
+  return (
     <>
-      {/* Chat Toggle Button - inline styles only, no classes that could be overridden */}
+      {/* Chat Toggle Button */}
       <button
-        id="grapevine-chat-button"
         onClick={() => setIsOpen(!isOpen)}
         aria-label={isOpen ? "Close chat" : "Open chat"}
         type="button"
         style={{
           position: 'fixed',
-          bottom: '20px',
-          right: '20px',
-          width: '60px',
-          height: '60px',
+          bottom: isMobile ? '16px' : '20px',
+          right: isMobile ? '16px' : '20px',
+          width: isMobile ? '56px' : '60px',
+          height: isMobile ? '56px' : '60px',
           borderRadius: '50%',
           border: 'none',
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          zIndex: 2147483647,
+          zIndex: 999999,
           background: 'linear-gradient(135deg, #6B4E71 0%, #8B6B8F 100%)',
           boxShadow: '0 4px 20px rgba(107, 78, 113, 0.5)',
-          transform: 'none',
-          willChange: 'auto',
-          contain: 'none',
-          WebkitTapHighlightColor: 'transparent',
-          touchAction: 'manipulation',
         }}
       >
         {isOpen ? (
-          <X style={{ width: 24, height: 24, color: 'white', pointerEvents: 'none' }} />
+          <X style={{ width: 24, height: 24, color: 'white' }} />
         ) : (
-          <MessageCircle style={{ width: 24, height: 24, color: 'white', pointerEvents: 'none' }} />
+          <MessageCircle style={{ width: 24, height: 24, color: 'white' }} />
         )}
       </button>
 
       {/* Chat Window */}
       {isOpen && (
         <div
-          id="grapevine-chat-window"
           style={{
             position: 'fixed',
-            bottom: window.innerWidth <= 480 ? '0' : '90px',
-            right: window.innerWidth <= 480 ? '0' : '20px',
-            left: window.innerWidth <= 480 ? '0' : 'auto',
-            top: window.innerWidth <= 480 ? '0' : 'auto',
-            width: window.innerWidth <= 480 ? '100%' : '380px',
-            height: window.innerWidth <= 480 ? '100%' : '520px',
-            maxHeight: window.innerWidth <= 480 ? '100%' : '70vh',
-            borderRadius: window.innerWidth <= 480 ? '0' : '16px',
-            zIndex: 2147483646,
+            bottom: isMobile ? '0' : '90px',
+            right: isMobile ? '0' : '20px',
+            left: isMobile ? '0' : 'auto',
+            top: isMobile ? '0' : 'auto',
+            width: isMobile ? '100%' : '380px',
+            height: isMobile ? '100%' : '520px',
+            maxHeight: isMobile ? '100%' : '70vh',
+            borderRadius: isMobile ? '0' : '16px',
+            zIndex: 999998,
             background: '#FDF8F3',
             boxShadow: '0 10px 40px rgba(0, 0, 0, 0.2)',
             display: 'flex',
-            flexDirection: 'column',
-            transform: 'none',
-            willChange: 'auto',
-            contain: 'none',
+            flexDirection: 'column' as const,
           }}
         >
           {/* Header */}
@@ -234,7 +215,7 @@ const ChatWidget = () => {
               padding: '16px 20px',
               flexShrink: 0,
               background: 'linear-gradient(135deg, #6B4E71 0%, #8B6B8F 100%)',
-              borderRadius: window.innerWidth <= 480 ? '0' : '16px 16px 0 0',
+              borderRadius: isMobile ? '0' : '16px 16px 0 0',
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -284,7 +265,7 @@ const ChatWidget = () => {
               overflowY: 'auto',
               padding: '16px',
               display: 'flex',
-              flexDirection: 'column',
+              flexDirection: 'column' as const,
               gap: '12px',
               minHeight: 0,
             }}
@@ -330,36 +311,9 @@ const ChatWidget = () => {
                   alignItems: 'center',
                 }}
               >
-                <span
-                  style={{
-                    width: '8px',
-                    height: '8px',
-                    borderRadius: '50%',
-                    background: '#6B4E71',
-                    animation: 'bounce 1s infinite',
-                    animationDelay: '0ms',
-                  }}
-                />
-                <span
-                  style={{
-                    width: '8px',
-                    height: '8px',
-                    borderRadius: '50%',
-                    background: '#6B4E71',
-                    animation: 'bounce 1s infinite',
-                    animationDelay: '150ms',
-                  }}
-                />
-                <span
-                  style={{
-                    width: '8px',
-                    height: '8px',
-                    borderRadius: '50%',
-                    background: '#6B4E71',
-                    animation: 'bounce 1s infinite',
-                    animationDelay: '300ms',
-                  }}
-                />
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#6B4E71', opacity: 0.6 }}>●</span>
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#6B4E71', opacity: 0.8 }}>●</span>
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#6B4E71' }}>●</span>
               </div>
             )}
 
@@ -371,13 +325,13 @@ const ChatWidget = () => {
             onSubmit={sendMessage}
             style={{
               display: 'flex',
-              flexDirection: 'column',
+              flexDirection: 'column' as const,
               gap: '8px',
               padding: '16px',
               borderTop: '1px solid #E8E0E8',
               background: 'white',
               flexShrink: 0,
-              paddingBottom: window.innerWidth <= 480 ? 'max(16px, env(safe-area-inset-bottom))' : '16px',
+              paddingBottom: isMobile ? 'max(16px, env(safe-area-inset-bottom))' : '16px',
             }}
           >
             {validationError && (
@@ -397,7 +351,7 @@ const ChatWidget = () => {
                 style={{
                   flex: 1,
                   padding: '12px 20px',
-                  fontSize: '16px', // Prevent iOS zoom
+                  fontSize: '16px',
                   borderRadius: '9999px',
                   border: `1px solid ${validationError ? '#ef4444' : '#E8E0E8'}`,
                   outline: 'none',
@@ -429,9 +383,6 @@ const ChatWidget = () => {
       )}
     </>
   );
-
-  // Render directly to document.body
-  return createPortal(chatContent, document.body);
 };
 
 export default ChatWidget;
