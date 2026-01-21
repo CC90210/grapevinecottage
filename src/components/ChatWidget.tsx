@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 interface Message {
   role: "user" | "assistant";
@@ -15,7 +16,15 @@ const ChatWidget = () => {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Ensure we only render portal after mount (client-side)
+  useEffect(() => {
+    setMounted(true);
+    console.log("[ChatWidget] Mounted, portal ready");
+    return () => setMounted(false);
+  }, []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -67,36 +76,59 @@ const ChatWidget = () => {
     }
   };
 
-  return (
-    <>
-      {/* TOGGLE BUTTON - Always visible */}
+  // Don't render anything until mounted (prevents SSR issues)
+  if (!mounted) return null;
+
+  const widgetContent = (
+    <div
+      id="grapevine-chat-widget"
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        pointerEvents: "none",
+        zIndex: 2147483647,
+        // CRITICAL: Prevent any transforms from affecting this container
+        transform: "none",
+        WebkitTransform: "none",
+        isolation: "isolate",
+      }}
+    >
+      {/* TOGGLE BUTTON */}
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          console.log("[ChatWidget] Button clicked, toggling:", !isOpen);
+          setIsOpen(!isOpen);
+        }}
         aria-label="Chat"
         style={{
-          position: 'fixed',
+          position: "absolute",
           bottom: 20,
           right: 20,
           width: 60,
           height: 60,
-          borderRadius: '50%',
-          background: 'linear-gradient(135deg, #6B4E71, #8B6B8F)',
-          border: 'none',
-          cursor: 'pointer',
-          boxShadow: '0 4px 20px rgba(107,78,113,0.5)',
-          zIndex: 99999,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          borderRadius: "50%",
+          background: "linear-gradient(135deg, #6B4E71, #8B6B8F)",
+          border: "none",
+          cursor: "pointer",
+          boxShadow: "0 4px 20px rgba(107,78,113,0.5)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          pointerEvents: "auto",
+          transform: "none",
+          WebkitTransform: "none",
         }}
       >
         {isOpen ? (
-          <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path d="M18 6L6 18M6 6l12 12" stroke="white" strokeWidth="2" strokeLinecap="round"/>
           </svg>
         ) : (
-          <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
-            <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="white" strokeWidth="2" fill="none"/>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="white" strokeWidth="2"/>
           </svg>
         )}
       </button>
@@ -105,29 +137,31 @@ const ChatWidget = () => {
       {isOpen && (
         <div
           style={{
-            position: 'fixed',
+            position: "absolute",
             bottom: 90,
             right: 20,
             width: 350,
-            maxWidth: 'calc(100vw - 40px)',
+            maxWidth: "calc(100vw - 40px)",
             height: 500,
-            maxHeight: 'calc(100vh - 120px)',
-            background: '#1a1a1a',
+            maxHeight: "calc(100vh - 120px)",
+            background: "#1a1a1a",
             borderRadius: 16,
-            boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
-            zIndex: 99998,
-            display: 'flex',
-            flexDirection: 'column',
-            overflow: 'hidden',
+            boxShadow: "0 10px 40px rgba(0,0,0,0.3)",
+            display: "flex",
+            flexDirection: "column",
+            overflow: "hidden",
+            pointerEvents: "auto",
+            transform: "none",
+            WebkitTransform: "none",
           }}
         >
           {/* Header */}
           <div
             style={{
-              background: 'linear-gradient(135deg, #6B4E71, #8B6B8F)',
+              background: "linear-gradient(135deg, #6B4E71, #8B6B8F)",
               padding: 16,
-              display: 'flex',
-              alignItems: 'center',
+              display: "flex",
+              alignItems: "center",
               gap: 12,
             }}
           >
@@ -135,19 +169,19 @@ const ChatWidget = () => {
               style={{
                 width: 40,
                 height: 40,
-                borderRadius: '50%',
-                background: 'rgba(255,255,255,0.2)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                borderRadius: "50%",
+                background: "rgba(255,255,255,0.2)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
                 fontSize: 20,
               }}
             >
               🍇
             </div>
             <div>
-              <div style={{ color: 'white', fontWeight: 600, fontSize: 16 }}>Chat with Kim</div>
-              <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: 12 }}>Grapevine Cottage</div>
+              <div style={{ color: "white", fontWeight: 600, fontSize: 16 }}>Chat with Kim</div>
+              <div style={{ color: "rgba(255,255,255,0.8)", fontSize: 12 }}>Grapevine Cottage</div>
             </div>
           </div>
 
@@ -155,10 +189,10 @@ const ChatWidget = () => {
           <div
             style={{
               flex: 1,
-              overflowY: 'auto',
+              overflowY: "auto",
               padding: 16,
-              display: 'flex',
-              flexDirection: 'column',
+              display: "flex",
+              flexDirection: "column",
               gap: 12,
             }}
           >
@@ -166,12 +200,12 @@ const ChatWidget = () => {
               <div
                 key={i}
                 style={{
-                  alignSelf: m.role === 'user' ? 'flex-end' : 'flex-start',
-                  background: m.role === 'user' ? '#6B4E71' : '#2a2a2a',
-                  color: 'white',
-                  padding: '10px 14px',
+                  alignSelf: m.role === "user" ? "flex-end" : "flex-start",
+                  background: m.role === "user" ? "#6B4E71" : "#2a2a2a",
+                  color: "white",
+                  padding: "10px 14px",
                   borderRadius: 12,
-                  maxWidth: '80%',
+                  maxWidth: "80%",
                   fontSize: 14,
                   lineHeight: 1.4,
                 }}
@@ -182,10 +216,10 @@ const ChatWidget = () => {
             {isLoading && (
               <div
                 style={{
-                  alignSelf: 'flex-start',
-                  background: '#2a2a2a',
-                  color: 'rgba(255,255,255,0.6)',
-                  padding: '10px 14px',
+                  alignSelf: "flex-start",
+                  background: "#2a2a2a",
+                  color: "rgba(255,255,255,0.6)",
+                  padding: "10px 14px",
                   borderRadius: 12,
                   fontSize: 14,
                 }}
@@ -200,11 +234,11 @@ const ChatWidget = () => {
           <form
             onSubmit={sendMessage}
             style={{
-              display: 'flex',
+              display: "flex",
               gap: 8,
               padding: 12,
-              borderTop: '1px solid #333',
-              background: '#1a1a1a',
+              borderTop: "1px solid #333",
+              background: "#1a1a1a",
             }}
           >
             <input
@@ -215,13 +249,13 @@ const ChatWidget = () => {
               disabled={isLoading}
               style={{
                 flex: 1,
-                border: '1px solid #444',
+                border: "1px solid #444",
                 borderRadius: 20,
-                padding: '10px 16px',
+                padding: "10px 16px",
                 fontSize: 16,
-                outline: 'none',
-                background: '#2a2a2a',
-                color: 'white',
+                outline: "none",
+                background: "#2a2a2a",
+                color: "white",
               }}
             />
             <button
@@ -230,25 +264,29 @@ const ChatWidget = () => {
               style={{
                 width: 40,
                 height: 40,
-                borderRadius: '50%',
-                background: '#6B4E71',
-                border: 'none',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                borderRadius: "50%",
+                background: "#6B4E71",
+                border: "none",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
                 opacity: !input.trim() || isLoading ? 0.5 : 1,
               }}
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
-                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
           </form>
         </div>
       )}
-    </>
+    </div>
   );
+
+  // CRITICAL: Render directly to document.body via portal
+  // This escapes the React DOM tree and any CSS transforms from framer-motion
+  return createPortal(widgetContent, document.body);
 };
 
 export default ChatWidget;
