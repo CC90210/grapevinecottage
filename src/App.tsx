@@ -9,6 +9,7 @@ import Shop from "./pages/Shop";
 import Visit from "./pages/Visit";
 import Contact from "./pages/Contact";
 import Events from "./pages/Events";
+import Chat from "./pages/Chat";
 import NotFound from "./pages/NotFound";
 import ChatWidget from "./components/ChatWidget";
 
@@ -27,12 +28,12 @@ const App = () => (
           <Route path="/visit" element={<Visit />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/chat" element={<Chat />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <ChatWidget />
       </BrowserRouter>
-      {/* ChatWidget rendered at root level, outside all layouts for guaranteed visibility */}
-      <ChatWidget />
     </TooltipProvider>
   </QueryClientProvider>
 );
