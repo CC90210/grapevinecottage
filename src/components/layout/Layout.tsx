@@ -8,9 +8,10 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="min-h-screen flex flex-col">
+    // NO overflow properties here - let body scroll naturally
+    <div className="flex flex-col" style={{ overflow: 'visible', transform: 'none' }}>
       <Header />
-      <main className="flex-1 pt-20">{children}</main>
+      <main className="pt-20" style={{ overflow: 'visible', transform: 'none' }}>{children}</main>
       <Footer />
     </div>
   );
