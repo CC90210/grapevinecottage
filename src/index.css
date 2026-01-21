@@ -206,3 +206,14 @@
     }
   }
 }
+
+/* Chat Widget - Force visibility with highest specificity */
+#grapevine-chat-button,
+#grapevine-chat-window {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+}
