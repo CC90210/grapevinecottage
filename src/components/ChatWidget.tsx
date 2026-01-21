@@ -161,11 +161,8 @@ const ChatWidget = () => {
     }
   };
 
-  // Get the portal root outside React's main root
-  const portalRoot = document.getElementById('chat-portal-root');
-  
-  // Don't render until mounted and portal root exists
-  if (!mounted || !portalRoot) return null;
+  // Render directly to document.body - simplest approach
+  if (!mounted) return null;
 
   const chatContent = (
     <>
@@ -433,8 +430,8 @@ const ChatWidget = () => {
     </>
   );
 
-  // Render to separate portal root OUTSIDE React's main root
-  return createPortal(chatContent, portalRoot);
+  // Render directly to document.body
+  return createPortal(chatContent, document.body);
 };
 
 export default ChatWidget;
