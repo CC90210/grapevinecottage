@@ -11,6 +11,7 @@ const WEBHOOK_URL = "https://n8n.srv993801.hstgr.cloud/webhook/4608e17f-7b99-4a8
 
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
   const [messages, setMessages] = useState<Message[]>([
     { role: "assistant", content: "Hi there! Welcome to Grapevine Cottage! 💜" },
     { role: "assistant", content: "I'm Kim, the owner. What brings you in today?" },
@@ -19,6 +20,32 @@ const ChatWidget = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Find or create portal target on mount - MUST be outside #root
+  useEffect(() => {
+    let target = document.getElementById('chat-portal-root');
+    if (!target) {
+      target = document.createElement('div');
+      target.id = 'chat-portal-root';
+      document.body.appendChild(target);
+    }
+    // Apply critical inline styles directly to ensure they can't be overridden
+    target.style.cssText = `
+      position: fixed !important;
+      bottom: 0 !important;
+      right: 0 !important;
+      left: auto !important;
+      top: auto !important;
+      z-index: 2147483647 !important;
+      pointer-events: none !important;
+      transform: none !important;
+      -webkit-transform: none !important;
+      will-change: auto !important;
+      contain: none !important;
+      isolation: isolate !important;
+    `;
+    setPortalTarget(target);
+  }, []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -76,23 +103,11 @@ const ChatWidget = () => {
     }
   };
 
-  // Critical: These styles MUST use !important to override any inherited transforms
+  if (!portalTarget) return null;
+
   const chatContent = (
-    <div
-      id="chat-widget-container"
-      style={{
-        position: 'fixed',
-        bottom: 0,
-        right: 0,
-        zIndex: 2147483647,
-        transform: 'none',
-        WebkitTransform: 'none',
-        willChange: 'auto',
-        contain: 'none',
-        isolation: 'isolate',
-      }}
-    >
-      {/* Floating Button */}
+    <>
+      {/* Floating Button - always visible */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         style={{
@@ -110,8 +125,7 @@ const ChatWidget = () => {
           zIndex: 2147483647,
           background: 'linear-gradient(135deg, #6B4E71 0%, #8B6B8F 100%)',
           boxShadow: '0 4px 20px rgba(107, 78, 113, 0.5)',
-          transform: 'none',
-          WebkitTransform: 'none',
+          pointerEvents: 'auto',
         }}
         aria-label="Chat"
       >
@@ -134,8 +148,7 @@ const ChatWidget = () => {
           background: '#FDF8F3',
           display: 'flex',
           flexDirection: 'column',
-          transform: 'none',
-          WebkitTransform: 'none',
+          pointerEvents: 'auto',
         }}>
           {/* Header */}
           <div style={{
@@ -259,11 +272,10 @@ const ChatWidget = () => {
           </form>
         </div>
       )}
-    </div>
+    </>
   );
 
-  // Render directly to document.body via portal - completely outside React tree
-  return createPortal(chatContent, document.body);
+  return createPortal(chatContent, portalTarget);
 };
 
 export default ChatWidget;
