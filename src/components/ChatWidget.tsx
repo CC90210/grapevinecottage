@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { createPortal } from "react-dom";
 import { MessageCircle, X, Send } from "lucide-react";
 
 interface Message {
@@ -11,7 +10,6 @@ const WEBHOOK_URL = "https://n8n.srv993801.hstgr.cloud/webhook/4608e17f-7b99-4a8
 
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
   const [messages, setMessages] = useState<Message[]>([
     { role: "assistant", content: "Hi there! Welcome to Grapevine Cottage! 💜" },
     { role: "assistant", content: "I'm Kim, the owner. What brings you in today?" },
@@ -20,32 +18,6 @@ const ChatWidget = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  // Find or create portal target on mount - MUST be outside #root
-  useEffect(() => {
-    let target = document.getElementById('chat-portal-root');
-    if (!target) {
-      target = document.createElement('div');
-      target.id = 'chat-portal-root';
-      document.body.appendChild(target);
-    }
-    // Apply critical inline styles directly to ensure they can't be overridden
-    target.style.cssText = `
-      position: fixed !important;
-      bottom: 0 !important;
-      right: 0 !important;
-      left: auto !important;
-      top: auto !important;
-      z-index: 2147483647 !important;
-      pointer-events: none !important;
-      transform: none !important;
-      -webkit-transform: none !important;
-      will-change: auto !important;
-      contain: none !important;
-      isolation: isolate !important;
-    `;
-    setPortalTarget(target);
-  }, []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -103,139 +75,54 @@ const ChatWidget = () => {
     }
   };
 
-  if (!portalTarget) return null;
-
-  const chatContent = (
+  return (
     <>
-      {/* Floating Button - always visible */}
-      <button
+      {/* Floating Chat Button */}
+      <div
+        className="chat-widget-button"
         onClick={() => setIsOpen(!isOpen)}
-        style={{
-          position: 'fixed',
-          bottom: 20,
-          right: 20,
-          width: 60,
-          height: 60,
-          borderRadius: '50%',
-          border: 'none',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 2147483647,
-          background: 'linear-gradient(135deg, #6B4E71 0%, #8B6B8F 100%)',
-          boxShadow: '0 4px 20px rgba(107, 78, 113, 0.5)',
-          pointerEvents: 'auto',
-        }}
-        aria-label="Chat"
+        role="button"
+        tabIndex={0}
+        aria-label="Open chat"
       >
-        {isOpen ? (
-          <X size={24} color="white" />
-        ) : (
-          <MessageCircle size={24} color="white" />
-        )}
-      </button>
+        {isOpen ? <X size={24} color="white" /> : <MessageCircle size={24} color="white" />}
+      </div>
 
-      {/* Chat Window - Full screen on mobile */}
+      {/* Chat Window */}
       {isOpen && (
-        <div style={{
-          position: 'fixed',
-          bottom: 0,
-          right: 0,
-          left: 0,
-          top: 0,
-          zIndex: 2147483646,
-          background: '#FDF8F3',
-          display: 'flex',
-          flexDirection: 'column',
-          pointerEvents: 'auto',
-        }}>
+        <div className="chat-widget-window">
           {/* Header */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: 16,
-            background: 'linear-gradient(135deg, #6B4E71 0%, #8B6B8F 100%)',
-          }}>
+          <div className="chat-widget-header">
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <div style={{
-                width: 40,
-                height: 40,
-                borderRadius: '50%',
-                background: 'rgba(255,255,255,0.2)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: 20,
-              }}>
-                🍇
-              </div>
+              <div className="chat-widget-avatar">🍇</div>
               <div>
                 <div style={{ fontWeight: 600, color: 'white', fontSize: 16 }}>Grapevine Cottage</div>
                 <div style={{ color: 'rgba(255,255,255,0.9)', fontSize: 12 }}>Chat with Kim ✨</div>
               </div>
             </div>
-            <button
-              onClick={() => setIsOpen(false)}
-              style={{ background: 'none', border: 'none', padding: 8, cursor: 'pointer' }}
-            >
+            <button onClick={() => setIsOpen(false)} className="chat-widget-close">
               <X size={24} color="white" />
             </button>
           </div>
 
           {/* Messages */}
-          <div style={{
-            flex: 1,
-            overflowY: 'auto',
-            padding: 16,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 12,
-          }}>
+          <div className="chat-widget-messages">
             {messages.map((msg, idx) => (
               <div
                 key={idx}
-                style={{
-                  maxWidth: '85%',
-                  padding: '12px 16px',
-                  fontSize: 14,
-                  lineHeight: 1.5,
-                  borderRadius: 16,
-                  ...(msg.role === 'user'
-                    ? { marginLeft: 'auto', background: '#6B4E71', color: 'white' }
-                    : { marginRight: 'auto', background: 'white', color: '#3D3D3D', border: '1px solid #E8E0E8' }),
-                }}
+                className={`chat-widget-message ${msg.role === 'user' ? 'user' : 'assistant'}`}
               >
                 {msg.content}
               </div>
             ))}
             {isLoading && (
-              <div style={{
-                padding: '12px 16px',
-                background: 'white',
-                border: '1px solid #E8E0E8',
-                borderRadius: 16,
-                width: 'fit-content',
-              }}>
-                Typing...
-              </div>
+              <div className="chat-widget-message assistant">Typing...</div>
             )}
             <div ref={messagesEndRef} />
           </div>
 
           {/* Input */}
-          <form
-            onSubmit={sendMessage}
-            style={{
-              display: 'flex',
-              gap: 12,
-              padding: 16,
-              paddingBottom: 'max(16px, env(safe-area-inset-bottom))',
-              borderTop: '1px solid #E8E0E8',
-              background: 'white',
-            }}
-          >
+          <form onSubmit={sendMessage} className="chat-widget-input-form">
             <input
               ref={inputRef}
               type="text"
@@ -243,29 +130,12 @@ const ChatWidget = () => {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type a message..."
               disabled={isLoading}
-              style={{
-                flex: 1,
-                padding: '12px 20px',
-                fontSize: 16,
-                borderRadius: 9999,
-                border: '1px solid #E8E0E8',
-                outline: 'none',
-              }}
+              className="chat-widget-input"
             />
             <button
               type="submit"
               disabled={!input.trim() || isLoading}
-              style={{
-                width: 44,
-                height: 44,
-                borderRadius: '50%',
-                border: 'none',
-                background: input.trim() ? '#6B4E71' : '#ccc',
-                cursor: input.trim() ? 'pointer' : 'not-allowed',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
+              className="chat-widget-send"
             >
               <Send size={20} color="white" />
             </button>
@@ -274,8 +144,6 @@ const ChatWidget = () => {
       )}
     </>
   );
-
-  return createPortal(chatContent, portalTarget);
 };
 
 export default ChatWidget;
