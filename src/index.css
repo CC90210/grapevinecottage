@@ -128,11 +128,16 @@
     @apply border-border;
   }
 
+  /* FORCE LIGHT MODE - Prevent browser dark mode detection */
+  html {
+    color-scheme: light only !important;
+  }
+
   /* CRITICAL: Make html/body the scroll containers, not wrapper divs */
   html {
     height: 100%;
     overflow-x: hidden;
-    overflow-y: scroll !important; /* Body scrolls, not child divs */
+    overflow-y: scroll !important;
     scroll-behavior: smooth;
   }
 
@@ -141,7 +146,9 @@
     font-family: var(--font-body);
     min-height: 100%;
     overflow-x: hidden;
-    overflow-y: visible !important; /* Allow content to flow naturally */
+    overflow-y: visible !important;
+    /* Explicit light mode colors as fallback */
+    background-color: hsl(30 50% 98%) !important;
   }
 
   h1, h2, h3, h4, h5, h6 {
