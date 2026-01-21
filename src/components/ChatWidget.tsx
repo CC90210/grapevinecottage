@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Send } from "lucide-react";
 
 interface Message {
   role: "user" | "assistant";
@@ -17,17 +16,10 @@ const ChatWidget = () => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-
-  useEffect(() => {
-    if (isOpen && inputRef.current) {
-      setTimeout(() => inputRef.current?.focus(), 100);
-    }
-  }, [isOpen]);
 
   const getSessionId = () => {
     let sessionId = sessionStorage.getItem("chatSessionId");
@@ -77,67 +69,180 @@ const ChatWidget = () => {
 
   return (
     <>
-      {/* Floating Chat Button */}
-      <div
-        className="chat-widget-button"
+      {/* TOGGLE BUTTON - Always visible */}
+      <button
         onClick={() => setIsOpen(!isOpen)}
-        role="button"
-        tabIndex={0}
-        aria-label="Open chat"
+        aria-label="Chat"
+        style={{
+          position: 'fixed',
+          bottom: 20,
+          right: 20,
+          width: 60,
+          height: 60,
+          borderRadius: '50%',
+          background: 'linear-gradient(135deg, #6B4E71, #8B6B8F)',
+          border: 'none',
+          cursor: 'pointer',
+          boxShadow: '0 4px 20px rgba(107,78,113,0.5)',
+          zIndex: 99999,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
       >
-        {isOpen ? <X size={24} color="white" /> : <MessageCircle size={24} color="white" />}
-      </div>
+        {isOpen ? (
+          <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+            <path d="M18 6L6 18M6 6l12 12" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+          </svg>
+        ) : (
+          <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+            <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="white" strokeWidth="2" fill="none"/>
+          </svg>
+        )}
+      </button>
 
-      {/* Chat Window */}
+      {/* CHAT WINDOW */}
       {isOpen && (
-        <div className="chat-widget-window">
+        <div
+          style={{
+            position: 'fixed',
+            bottom: 90,
+            right: 20,
+            width: 350,
+            maxWidth: 'calc(100vw - 40px)',
+            height: 500,
+            maxHeight: 'calc(100vh - 120px)',
+            background: '#1a1a1a',
+            borderRadius: 16,
+            boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
+            zIndex: 99998,
+            display: 'flex',
+            flexDirection: 'column',
+            overflow: 'hidden',
+          }}
+        >
           {/* Header */}
-          <div className="chat-widget-header">
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <div className="chat-widget-avatar">🍇</div>
-              <div>
-                <div style={{ fontWeight: 600, color: 'white', fontSize: 16 }}>Grapevine Cottage</div>
-                <div style={{ color: 'rgba(255,255,255,0.9)', fontSize: 12 }}>Chat with Kim ✨</div>
-              </div>
+          <div
+            style={{
+              background: 'linear-gradient(135deg, #6B4E71, #8B6B8F)',
+              padding: 16,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+            }}
+          >
+            <div
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: '50%',
+                background: 'rgba(255,255,255,0.2)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 20,
+              }}
+            >
+              🍇
             </div>
-            <button onClick={() => setIsOpen(false)} className="chat-widget-close">
-              <X size={24} color="white" />
-            </button>
+            <div>
+              <div style={{ color: 'white', fontWeight: 600, fontSize: 16 }}>Chat with Kim</div>
+              <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: 12 }}>Grapevine Cottage</div>
+            </div>
           </div>
 
           {/* Messages */}
-          <div className="chat-widget-messages">
-            {messages.map((msg, idx) => (
+          <div
+            style={{
+              flex: 1,
+              overflowY: 'auto',
+              padding: 16,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 12,
+            }}
+          >
+            {messages.map((m, i) => (
               <div
-                key={idx}
-                className={`chat-widget-message ${msg.role === 'user' ? 'user' : 'assistant'}`}
+                key={i}
+                style={{
+                  alignSelf: m.role === 'user' ? 'flex-end' : 'flex-start',
+                  background: m.role === 'user' ? '#6B4E71' : '#2a2a2a',
+                  color: 'white',
+                  padding: '10px 14px',
+                  borderRadius: 12,
+                  maxWidth: '80%',
+                  fontSize: 14,
+                  lineHeight: 1.4,
+                }}
               >
-                {msg.content}
+                {m.content}
               </div>
             ))}
             {isLoading && (
-              <div className="chat-widget-message assistant">Typing...</div>
+              <div
+                style={{
+                  alignSelf: 'flex-start',
+                  background: '#2a2a2a',
+                  color: 'rgba(255,255,255,0.6)',
+                  padding: '10px 14px',
+                  borderRadius: 12,
+                  fontSize: 14,
+                }}
+              >
+                Typing...
+              </div>
             )}
             <div ref={messagesEndRef} />
           </div>
 
           {/* Input */}
-          <form onSubmit={sendMessage} className="chat-widget-input-form">
+          <form
+            onSubmit={sendMessage}
+            style={{
+              display: 'flex',
+              gap: 8,
+              padding: 12,
+              borderTop: '1px solid #333',
+              background: '#1a1a1a',
+            }}
+          >
             <input
-              ref={inputRef}
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type a message..."
               disabled={isLoading}
-              className="chat-widget-input"
+              style={{
+                flex: 1,
+                border: '1px solid #444',
+                borderRadius: 20,
+                padding: '10px 16px',
+                fontSize: 16,
+                outline: 'none',
+                background: '#2a2a2a',
+                color: 'white',
+              }}
             />
             <button
               type="submit"
               disabled={!input.trim() || isLoading}
-              className="chat-widget-send"
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: '50%',
+                background: '#6B4E71',
+                border: 'none',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                opacity: !input.trim() || isLoading ? 0.5 : 1,
+              }}
             >
-              <Send size={20} color="white" />
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </button>
           </form>
         </div>
