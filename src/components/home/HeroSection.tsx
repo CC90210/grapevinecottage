@@ -5,7 +5,7 @@ import heroImage from "@/assets/storefront-exterior.jpg";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[90vh] flex items-center justify-center" style={{ overflow: 'visible' }}>
       {/* Background Image with Parallax Effect */}
       <div className="absolute inset-0">
         <motion.div

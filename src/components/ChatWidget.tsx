@@ -80,31 +80,17 @@ const ChatWidget = () => {
   if (!mounted) return null;
 
   const widgetContent = (
-    <div
-      id="grapevine-chat-widget"
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        pointerEvents: "none",
-        zIndex: 2147483647,
-        // CRITICAL: Prevent any transforms from affecting this container
-        transform: "none",
-        WebkitTransform: "none",
-        isolation: "isolate",
-      }}
-    >
-      {/* TOGGLE BUTTON */}
+    <>
+      {/* TOGGLE BUTTON - Rendered separately with maximum z-index */}
       <button
+        id="chat-toggle-btn"
         onClick={() => {
           console.log("[ChatWidget] Button clicked, toggling:", !isOpen);
           setIsOpen(!isOpen);
         }}
         aria-label="Chat"
         style={{
-          position: "absolute",
+          position: "fixed",
           bottom: 20,
           right: 20,
           width: 60,
@@ -117,9 +103,11 @@ const ChatWidget = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          pointerEvents: "auto",
-          transform: "none",
-          WebkitTransform: "none",
+          zIndex: 2147483647,
+          // Prevent ALL transforms
+          transform: "translateZ(0)",
+          WebkitTransform: "translateZ(0)",
+          willChange: "auto",
         }}
       >
         {isOpen ? (
@@ -136,8 +124,9 @@ const ChatWidget = () => {
       {/* CHAT WINDOW */}
       {isOpen && (
         <div
+          id="chat-window"
           style={{
-            position: "absolute",
+            position: "fixed",
             bottom: 90,
             right: 20,
             width: 350,
@@ -150,9 +139,9 @@ const ChatWidget = () => {
             display: "flex",
             flexDirection: "column",
             overflow: "hidden",
-            pointerEvents: "auto",
-            transform: "none",
-            WebkitTransform: "none",
+            zIndex: 2147483646,
+            transform: "translateZ(0)",
+            WebkitTransform: "translateZ(0)",
           }}
         >
           {/* Header */}
@@ -281,7 +270,7 @@ const ChatWidget = () => {
           </form>
         </div>
       )}
-    </div>
+    </>
   );
 
   // CRITICAL: Render directly to document.body via portal
