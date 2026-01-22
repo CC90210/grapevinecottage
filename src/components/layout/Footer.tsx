@@ -36,6 +36,9 @@ const Footer = () => {
               <Link to="/shop" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm">
                 Collections
               </Link>
+              <Link to="/cottage-finds" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm">
+                Cottage Finds
+              </Link>
               <Link to="/events" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm">
                 Events
               </Link>
@@ -72,10 +75,12 @@ const Footer = () => {
                 (705) 445-8001
               </a>
             </div>
-            <div className="mt-4 text-primary-foreground/70 text-xs">
+            <div className="mt-4 text-primary-foreground/70 text-xs space-y-0.5">
+              <p>Mon: Closed</p>
               <p>Tue–Wed: 10 AM – 4 PM</p>
               <p>Thu: 10 AM – 5:30 PM</p>
               <p>Fri–Sat: 10 AM – 4 PM</p>
+              <p>Sun: Closed</p>
             </div>
           </div>
 
