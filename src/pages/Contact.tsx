@@ -57,6 +57,7 @@ const Contact = () => {
         name: validation.data.name,
         email: validation.data.email,
         message: validation.data.message,
+        page_url: window.location.href,
         timestamp: new Date().toISOString(),
         source: "website_contact_form",
       };
