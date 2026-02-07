@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Facebook, Instagram, Send, AlertCircle } from "lucide-react";
 import Layout from "@/components/layout/Layout";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -87,7 +88,7 @@ const Contact = () => {
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
       console.error("Contact form error:", error);
-      
+
       // Provide helpful fallback instead of just failing
       toast({
         title: "Couldn't Send Message",
@@ -112,6 +113,10 @@ const Contact = () => {
 
   return (
     <Layout>
+      <SEO
+        title="Contact Us | Get in Touch with Grapevine Cottage"
+        description="Have questions about our unique gifts or artisan treasures? Reach out to Kim at Grapevine Cottage. Call us, send a message, or visit our store in downtown Collingwood."
+      />
       {/* Hero */}
       <section className="pt-32 pb-16 bg-secondary">
         <div className="container mx-auto px-4 text-center">
@@ -144,11 +149,11 @@ const Contact = () => {
             className="max-w-2xl mx-auto text-center bg-secondary/50 rounded-xl p-8"
           >
             <p className="text-lg text-muted-foreground mb-4 italic">
-              "I'd love to see you in the store. Stop by, say hello, and let me help 
+              "I'd love to see you in the store. Stop by, say hello, and let me help
               you find that perfect something."
             </p>
             <p className="text-lg text-muted-foreground mb-2">
-              If you can't make it in person, feel free to call or reach out. 
+              If you can't make it in person, feel free to call or reach out.
               I'm always happy to help.
             </p>
             <p className="font-script text-2xl text-primary">— Kim</p>
@@ -252,7 +257,7 @@ const Contact = () => {
                   Connect With Us
                 </h3>
                 <p className="text-muted-foreground mb-4">
-                  We've started fresh with new social pages for this new chapter. Over 15,000 people 
+                  We've started fresh with new social pages for this new chapter. Over 15,000 people
                   followed our story before — join us as we continue the journey!
                 </p>
                 <div className="flex items-center gap-4">

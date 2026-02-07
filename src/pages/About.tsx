@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Heart, Users, Sparkles, Gift, ArrowRight } from "lucide-react";
 import Layout from "@/components/layout/Layout";
+import SEO from "@/components/SEO";
 import SectionHeading from "@/components/ui/section-heading";
 import { Button } from "@/components/ui/button";
 import storefrontImg from "@/assets/storefront-exterior.jpg";
@@ -33,6 +34,10 @@ const values = [
 const About = () => {
   return (
     <Layout>
+      <SEO
+        title="Our Story | 20+ Years in Downtown Collingwood"
+        description="Learn about the legacy of Grapevine Cottage and our new chapter with Kim. A community landmark for unique gifts and artisan treasures in Collingwood since 2001."
+      />
       {/* Hero */}
       <section className="relative py-32 md:py-40 overflow-hidden">
         <div className="absolute inset-0">
@@ -80,17 +85,17 @@ const About = () => {
               </h2>
               <div className="space-y-4 text-muted-foreground text-lg">
                 <p>
-                  In 2001, Grapevine Cottage opened its doors in downtown Collingwood. 
-                  The name came from the handcrafted grapevine wreaths our founder Joy Edwards 
+                  In 2001, Grapevine Cottage opened its doors in downtown Collingwood.
+                  The name came from the handcrafted grapevine wreaths our founder Joy Edwards
                   used to make by hand.
                 </p>
                 <p>
-                  What started as a small shop filled with passion became something more — 
-                  a place where neighbors became friends, where gifts meant something, 
+                  What started as a small shop filled with passion became something more —
+                  a place where neighbors became friends, where gifts meant something,
                   and where you could always find something you never knew you needed.
                 </p>
                 <p>
-                  For over two decades, Joy and her daughter April filled this space with love, 
+                  For over two decades, Joy and her daughter April filled this space with love,
                   laughter, and an endless stream of unique treasures.
                 </p>
               </div>
@@ -147,22 +152,22 @@ const About = () => {
                   In 2025, I was given an unexpected gift.
                 </p>
                 <p>
-                  After spending my career in service — working for the federal government 
-                  and at Children's Aid — I retired in January. I wasn't quite ready, 
+                  After spending my career in service — working for the federal government
+                  and at Children's Aid — I retired in January. I wasn't quite ready,
                   but life had other plans.
                 </p>
                 <p>
-                  When the opportunity came to take over Grapevine Cottage, I felt something 
-                  I can only describe as <em className="text-foreground">meant to be</em>. 
-                  This store has been part of our community for so long. I felt honored 
+                  When the opportunity came to take over Grapevine Cottage, I felt something
+                  I can only describe as <em className="text-foreground">meant to be</em>.
+                  This store has been part of our community for so long. I felt honored
                   to be the one to carry it forward.
                 </p>
                 <p className="text-foreground font-medium">
                   My name is Kim, and I'm the new guardian of this special place.
                 </p>
                 <p>
-                  I moved to Collingwood full-time in 2019 to help my father, though I've been 
-                  coming here my whole life. This town, this community, this store — 
+                  I moved to Collingwood full-time in 2019 to help my father, though I've been
+                  coming here my whole life. This town, this community, this store —
                   they're part of who I am now.
                 </p>
               </div>
@@ -195,12 +200,12 @@ const About = () => {
                   That's the magic of Grapevine Cottage.
                 </p>
                 <p>
-                  You come in looking for a gift and leave with something for yourself. 
-                  You browse the shelves and discover a treasure you never knew existed. 
+                  You come in looking for a gift and leave with something for yourself.
+                  You browse the shelves and discover a treasure you never knew existed.
                   You walk out with a story to tell.
                 </p>
                 <p>
-                  That's what we do here. We find the unexpected, the unique, the special — 
+                  That's what we do here. We find the unexpected, the unique, the special —
                   so you can too.
                 </p>
               </div>
@@ -260,11 +265,11 @@ const About = () => {
               </h2>
               <div className="space-y-6 text-muted-foreground text-lg">
                 <p>
-                  My hope is simple: that people realize we're here, that they come back, 
+                  My hope is simple: that people realize we're here, that they come back,
                   and that we keep growing together as a community.
                 </p>
                 <p>
-                  We're planning events, welcoming new treasures, and keeping the doors open 
+                  We're planning events, welcoming new treasures, and keeping the doors open
                   for anyone who wants to wander in and discover something wonderful.
                 </p>
                 <p className="text-xl text-foreground font-medium pt-4">

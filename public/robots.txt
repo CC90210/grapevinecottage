@@ -1,5 +1,5 @@
 # Grapevine Cottage - Robots.txt
-# https://grapevinecottage.online
+# https://www.grapevinecottage.online
 
 User-agent: Googlebot
 Allow: /
@@ -23,4 +23,4 @@ Allow: /
 Crawl-delay: 2
 
 # Sitemap location
-Sitemap: https://grapevinecottage.online/sitemap.xml
+Sitemap: https://www.grapevinecottage.online/sitemap.xml

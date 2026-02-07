@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Store } from "lucide-react";
 import Layout from "@/components/layout/Layout";
+import SEO from "@/components/SEO";
 import SectionHeading from "@/components/ui/section-heading";
 import { Button } from "@/components/ui/button";
 import homeDecorImg from "@/assets/owl-collection.jpg";
@@ -67,6 +68,10 @@ const collections = [
 const Shop = () => {
   return (
     <Layout>
+      <SEO
+        title="Unique Shop | Home Decor, Jewelry & Handcrafted Gifts"
+        description="Browse our curated collections of home decor, handcrafted jewelry, garden accessories, and unique gifts. Visit Grapevine Cottage in Collingwood to discover the unexpected."
+      />
       {/* Hero */}
       <section className="pt-32 pb-16 bg-secondary">
         <div className="container mx-auto px-4 text-center">
@@ -123,9 +128,8 @@ const Shop = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6 }}
-                className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
-                  index % 2 === 1 ? "lg:flex-row-reverse" : ""
-                }`}
+                className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? "lg:flex-row-reverse" : ""
+                  }`}
               >
                 <div className={index % 2 === 1 ? "lg:order-2" : ""}>
                   <div className="aspect-[4/3] rounded-lg overflow-hidden shadow-card">

@@ -23,13 +23,20 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex flex-col items-start">
-            <span className="font-script text-2xl md:text-3xl text-primary">
-              Grapevine Cottage
-            </span>
-            <span className="text-[10px] md:text-xs text-muted-foreground tracking-widest uppercase">
-              Fabulous & Unique Gifts
-            </span>
+          <Link to="/" className="flex items-center gap-3 group">
+            <img
+              src="/logo.png"
+              alt="Grapevine Cottage – Collingwood Ontario"
+              className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            />
+            <div className="flex flex-col">
+              <span className="font-script text-2xl md:text-3xl text-primary leading-tight">
+                Grapevine Cottage
+              </span>
+              <span className="text-[10px] md:text-xs text-muted-foreground tracking-widest uppercase">
+                Fabulous & Unique Gifts
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
@@ -38,11 +45,10 @@ const Header = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`font-body text-sm tracking-wide transition-colors hover:text-primary ${
-                  location.pathname === link.path
+                className={`font-body text-sm tracking-wide transition-colors hover:text-primary ${location.pathname === link.path
                     ? "text-primary font-medium"
                     : "text-foreground/80"
-                }`}
+                  }`}
               >
                 {link.name}
               </Link>
@@ -97,18 +103,17 @@ const Header = () => {
           >
             <nav className="container mx-auto px-4 py-6 flex flex-col gap-4">
               {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                onClick={() => setIsOpen(false)}
-                className={`font-body text-lg py-2 transition-colors ${
-                  location.pathname === link.path
-                    ? "text-primary font-medium"
-                    : "text-foreground/80"
-                }`}
-              >
-                {link.name}
-              </Link>
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  onClick={() => setIsOpen(false)}
+                  className={`font-body text-lg py-2 transition-colors ${location.pathname === link.path
+                      ? "text-primary font-medium"
+                      : "text-foreground/80"
+                    }`}
+                >
+                  {link.name}
+                </Link>
               ))}
               <div className="flex items-center gap-4 pt-4 border-t border-border">
                 <a

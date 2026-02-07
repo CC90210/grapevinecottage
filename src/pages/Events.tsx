@@ -2,12 +2,17 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Calendar, Camera, Heart, Phone, MapPin, Clock, ArrowRight } from "lucide-react";
 import Layout from "@/components/layout/Layout";
+import SEO from "@/components/SEO";
 import SectionHeading from "@/components/ui/section-heading";
 import { Button } from "@/components/ui/button";
 
 const Events = () => {
   return (
     <Layout>
+      <SEO
+        title="Events & Store Happenings | What's On at Grapevine Cottage"
+        description="Stay updated with special events at Grapevine Cottage. Join us for holiday celebrations, photo sessions, and community gatherings in downtown Collingwood."
+      />
       {/* Hero */}
       <section className="pt-32 pb-16 bg-secondary">
         <div className="container mx-auto px-4 text-center">
@@ -57,10 +62,10 @@ const Events = () => {
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-6">
                   <p className="text-lg text-muted-foreground leading-relaxed">
-                    💕 Capture the love! We're hosting a professional photographer 
+                    💕 Capture the love! We're hosting a professional photographer
                     in-store for Valentine's Day photos.
                   </p>
-                  
+
                   <div className="space-y-4">
                     <h3 className="font-display text-xl text-foreground">Perfect for:</h3>
                     <ul className="space-y-2 text-muted-foreground">
@@ -107,7 +112,7 @@ const Events = () => {
                       <Camera className="w-5 h-5 text-primary mt-1" />
                       <div>
                         <h4 className="font-medium text-foreground">Book Your Spot</h4>
-                        <a 
+                        <a
                           href="tel:+17054458001"
                           className="text-primary hover:text-primary/80 transition-colors"
                         >
@@ -191,8 +196,8 @@ const Events = () => {
               More Events on the Horizon
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              We're planning more special events throughout the year — from seasonal 
-              celebrations to exclusive shopping nights. Check back often or follow 
+              We're planning more special events throughout the year — from seasonal
+              celebrations to exclusive shopping nights. Check back often or follow
               us on social media to stay in the loop!
             </p>
             <Button asChild size="lg">

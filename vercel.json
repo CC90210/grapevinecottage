@@ -1,4 +1,17 @@
 {
+    "redirects": [
+        {
+            "source": "/(.*)",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "grapevinecottage.online"
+                }
+            ],
+            "destination": "https://www.grapevinecottage.online/$1",
+            "permanent": true
+        }
+    ],
     "rewrites": [
         {
             "source": "/(.*)",

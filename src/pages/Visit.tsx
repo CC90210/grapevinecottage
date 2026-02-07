@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { MapPin, Phone, Clock } from "lucide-react";
 import Layout from "@/components/layout/Layout";
+import SEO from "@/components/SEO";
 import SectionHeading from "@/components/ui/section-heading";
 import { Button } from "@/components/ui/button";
 
@@ -17,6 +18,10 @@ const hours = [
 const Visit = () => {
   return (
     <Layout>
+      <SEO
+        title="Visit Us | Downtown Collingwood Gift Shop Location & Hours"
+        description="Plan your visit to Grapevine Cottage in Collingwood, Ontario. Find our location at 191 Hurontario St, check our store hours, and get directions for a unique shopping experience."
+      />
       {/* Hero */}
       <section className="pt-32 pb-16 bg-secondary">
         <div className="container mx-auto px-4 text-center">
@@ -124,9 +129,8 @@ const Visit = () => {
                   {hours.map((item) => (
                     <li
                       key={item.day}
-                      className={`flex justify-between ${
-                        item.closed ? "text-muted-foreground" : "text-foreground"
-                      }`}
+                      className={`flex justify-between ${item.closed ? "text-muted-foreground" : "text-foreground"
+                        }`}
                     >
                       <span className="font-medium">{item.day}</span>
                       <span>{item.hours}</span>

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import Layout from "@/components/layout/Layout";
+import SEO from "@/components/SEO";
 
 // Import all cottage finds images
 import hotAirBalloonLantern from "@/assets/cottage-finds/hot-air-balloon-lantern.jpg";
@@ -25,6 +26,10 @@ const cottageFinds = [
 const CottageFinds = () => {
   return (
     <Layout>
+      <SEO
+        title="Cottage Finds | Unique Treasures & Local Artisan Crafts"
+        description="Discover our curated gallery of Cottage Finds. From handcrafted lanterns to local art and specialty jewelry, explore the unique items that make Grapevine Cottage special."
+      />
       {/* Hero Section */}
       <section className="relative py-20 md:py-28 bg-gradient-to-b from-primary/5 to-background">
         <div className="container mx-auto px-4 text-center">
@@ -40,7 +45,7 @@ const CottageFinds = () => {
               Where you find things you never knew you wanted
             </p>
             <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-              Each piece in our shop has a story waiting to become part of yours. 
+              Each piece in our shop has a story waiting to become part of yours.
               Browse our curated collection of unique treasures, handpicked with love.
             </p>
           </motion.div>
