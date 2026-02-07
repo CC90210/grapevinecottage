@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import Layout from "@/components/layout/Layout";
 import SEO from "@/components/SEO";
+import { useCart } from "@/context/CartContext";
+import { ShoppingBag } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 // Import all cottage finds images
 import hotAirBalloonLantern from "@/assets/cottage-finds/hot-air-balloon-lantern.jpg";
@@ -13,23 +16,25 @@ import jewelryDisplay from "@/assets/cottage-finds/jewelry-display.jpg";
 import turquoiseCabinetGifts from "@/assets/cottage-finds/turquoise-cabinet-gifts.jpg";
 
 const cottageFinds = [
-  { id: 1, image: hotAirBalloonLantern, alt: "Blue and purple gradient hot air balloon glass lantern" },
-  { id: 2, image: birchForestArt, alt: "Textured birch forest canvas art" },
-  { id: 3, image: wishingThreadCrystals, alt: "Eternity Crystal Wishing Thread display" },
-  { id: 4, image: umbrellaHooks, alt: "Colorful umbrella wall hooks" },
-  { id: 5, image: meowCatTshirt, alt: "Purple cat graphic t-shirt" },
-  { id: 6, image: mapleLeafDecor, alt: "Red maple leaf metal wall art" },
-  { id: 7, image: jewelryDisplay, alt: "Artisan jewelry and necklace display" },
-  { id: 8, image: turquoiseCabinetGifts, alt: "Turquoise cabinet with curated gifts and soaps" },
+  { id: "find-1", name: "Glass Hot Air Balloon Lantern", price: 48.00, image: hotAirBalloonLantern, alt: "Blue and purple gradient hot air balloon glass lantern" },
+  { id: "find-2", name: "Birch Forest Canvas Art", price: 85.00, image: birchForestArt, alt: "Textured birch forest canvas art" },
+  { id: "find-3", name: "Eternity Wishing Thread", price: 24.00, image: wishingThreadCrystals, alt: "Eternity Crystal Wishing Thread display" },
+  { id: "find-4", name: "Umbrella Wall Hooks", price: 32.00, image: umbrellaHooks, alt: "Colorful umbrella wall hooks" },
+  { id: "find-5", name: "Meow Graphic Tee", price: 38.00, image: meowCatTshirt, alt: "Purple cat graphic t-shirt" },
+  { id: "find-6", name: "Maple Leaf Metal Art", price: 65.00, image: mapleLeafDecor, alt: "Red maple leaf metal wall art" },
+  { id: "find-7", name: "Artisan Jewelry Set", price: 42.00, image: jewelryDisplay, alt: "Artisan jewelry and necklace display" },
+  { id: "find-8", name: "Handcrafted Gift Set", price: 55.00, image: turquoiseCabinetGifts, alt: "Turquoise cabinet with curated gifts and soaps" },
 ];
 
 const CottageFinds = () => {
+  const { addToCart } = useCart();
   return (
     <Layout>
       <SEO
         title="Cottage Finds | Unique Treasures & Local Artisan Crafts"
         description="Discover our curated gallery of Cottage Finds. From handcrafted lanterns to local art and specialty jewelry, explore the unique items that make Grapevine Cottage special."
       />
+
       {/* Hero Section */}
       <section className="relative py-20 md:py-28 bg-gradient-to-b from-primary/5 to-background">
         <div className="container mx-auto px-4 text-center">
@@ -52,35 +57,58 @@ const CottageFinds = () => {
         </div>
       </section>
 
-      {/* Gallery Grid */}
-      <section className="py-16 md:py-24 bg-background">
+      {/* Featured Finds Grid */}
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-            {cottageFinds.map((item, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {cottageFinds.map((find, index) => (
               <motion.div
-                key={item.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                key={find.id}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group"
+                className="group flex flex-col"
               >
-                <div className="relative overflow-hidden rounded-xl bg-card shadow-md hover:shadow-xl transition-shadow duration-300">
-                  <div className="aspect-square overflow-hidden">
-                    <img
-                      src={item.image}
-                      alt={item.alt}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
+                <div className="aspect-square rounded-lg overflow-hidden bg-secondary relative mb-4 shadow-sm border border-border">
+                  <img
+                    src={find.image}
+                    alt={find.alt}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <Button
+                      onClick={() => addToCart({ id: find.id, name: find.name, price: find.price, image: find.image })}
+                      className="rounded-full shadow-lg"
+                    >
+                      Add to Bag
+                    </Button>
                   </div>
-                  {/* Subtle overlay on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                </div>
+                <div className="flex flex-col flex-1">
+                  <div className="flex justify-between items-start gap-2 mb-1">
+                    <h3 className="font-display text-lg text-foreground group-hover:text-primary transition-colors">
+                      {find.name}
+                    </h3>
+                  </div>
+                  <p className="text-primary font-body font-semibold text-lg mb-3">
+                    ${find.price.toFixed(2)}
+                  </p>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="mt-auto w-fit px-0 text-primary hover:text-primary/80 hover:bg-transparent"
+                    onClick={() => addToCart({ id: find.id, name: find.name, price: find.price, image: find.image })}
+                  >
+                    <ShoppingBag className="w-4 h-4 mr-2" /> Add to Bag
+                  </Button>
                 </div>
               </motion.div>
             ))}
           </div>
 
-          {/* Call to Action */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

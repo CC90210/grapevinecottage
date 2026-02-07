@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Facebook, Instagram } from "lucide-react";
+import { Menu, X, Facebook, Instagram, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/context/CartContext";
+import CartDrawer from "@/components/cart/CartDrawer";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -16,7 +18,9 @@ const navLinks = [
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const location = useLocation();
+  const { totalItems } = useCart();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
@@ -55,9 +59,9 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Social Icons & Mobile Menu */}
+          {/* Social Icons & Cart & Mobile Menu */}
           <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-3">
+            <div className="hidden md:flex items-center gap-3 border-r border-border pr-4 mr-1">
               <a
                 href="https://www.facebook.com/p/Grapevine-Cottage-61577257586575/"
                 target="_blank"
@@ -77,6 +81,22 @@ const Header = () => {
                 <Instagram className="w-5 h-5" />
               </a>
             </div>
+
+            {/* Cart Button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative hover:bg-primary/10 transition-colors"
+              onClick={() => setIsCartOpen(true)}
+              aria-label="Open cart"
+            >
+              <ShoppingBag className="w-6 h-6 text-foreground" />
+              {totalItems > 0 && (
+                <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center animate-in zoom-in">
+                  {totalItems}
+                </span>
+              )}
+            </Button>
 
             {/* Mobile Menu Button */}
             <Button
@@ -139,6 +159,8 @@ const Header = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </header>
   );
 };

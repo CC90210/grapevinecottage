@@ -13,10 +13,14 @@ import gardenImg from "@/assets/store-butterfly-markers.jpg";
 import giftsImg from "@/assets/store-friends-sign.jpg";
 import accessoriesImg from "@/assets/store-couples-keychains.jpg";
 
+import { useCart } from "@/context/CartContext";
+import { ShoppingBag } from "lucide-react";
+
 const collections = [
   {
     id: "home-decor",
     title: "Home Décor",
+    price: 45.00,
     description: "From metal wall art to vintage-style frames, these are the pieces that turn a house into your home. I'm always on the hunt for things that make you stop and say, 'I need that.'",
     image: homeDecorImg,
     items: ["Wall art & candles", "Mirrors & decorative pieces", "Vintage-inspired accents", "Modern home touches"],
@@ -24,6 +28,7 @@ const collections = [
   {
     id: "jewelry",
     title: "Jewelry",
+    price: 58.00,
     description: "Our jewelry collection is full of little treasures — Hazelwood necklaces, snowflake earrings that come gift-boxed with poems, and one-of-a-kind pieces you won't find anywhere else.",
     image: jewelryImg,
     items: ["Handcrafted earrings & necklaces", "Bracelets & rings", "Local artisan pieces", "Statement & everyday jewelry"],
@@ -31,6 +36,7 @@ const collections = [
   {
     id: "accessories",
     title: "Accessories & Gifts",
+    price: 32.00,
     description: "The perfect present for the person who has everything. Keychains, bags, wallets, scarves — small treasures that make big impressions.",
     image: accessoriesImg,
     items: ["Keychains", "Bags & wallets", "Scarves & accessories", "Hostess gifts & trinkets"],
@@ -38,6 +44,7 @@ const collections = [
   {
     id: "garden",
     title: "Garden & Outdoor",
+    price: 39.00,
     description: "Wind chimes that sing, sun catchers that sparkle, solar butterflies that surprise — if it brings joy to your garden, we probably have it.",
     image: gardenImg,
     items: ["Planters & garden decor", "Wind chimes & bird feeders", "Patio accents", "Solar decorations"],
@@ -45,6 +52,7 @@ const collections = [
   {
     id: "wellness",
     title: "Wellness & Spirituality",
+    price: 48.00,
     description: "Himalayan salt lamps, crystals, candles, and things that help you find your calm. Because we all need a little peace.",
     image: wellnessImg,
     items: ["Crystals & essential oils", "Sage & meditation tools", "Journals & self-care", "Himalayan salt lamps"],
@@ -52,6 +60,7 @@ const collections = [
   {
     id: "fashion",
     title: "Clothing & Fashion",
+    price: 65.00,
     description: "Unique clothing pieces and seasonal fashion items that feel as good as they look. Style with personality.",
     image: fashionImg,
     items: ["Unique clothing pieces", "Seasonal fashion items", "New arrivals coming soon!", "Fair trade options"],
@@ -59,6 +68,7 @@ const collections = [
   {
     id: "seasonal",
     title: "Seasonal & Holiday",
+    price: 28.00,
     description: "Rotating seasonal decor and holiday-specific items that make every celebration special. Limited edition pieces you won't want to miss.",
     image: giftsImg,
     items: ["Rotating seasonal decor", "Holiday-specific items", "Limited edition pieces", "Festive treasures"],
@@ -66,6 +76,8 @@ const collections = [
 ];
 
 const Shop = () => {
+  const { addToCart } = useCart();
+
   return (
     <Layout>
       <SEO
@@ -106,10 +118,10 @@ const Shop = () => {
             <Store className="w-8 h-8 text-primary" />
             <div>
               <p className="text-foreground font-medium">
-                💜 Love what you see? Our unique items are available exclusively in-store.
+                🛍️ New: Shop Online for In-Store Pickup or Local Shipping!
               </p>
               <p className="text-muted-foreground text-sm">
-                Visit us Tuesday-Saturday to take home your treasures! Can't make it in? Call (705) 445-8001 and we'll help you find something special.
+                You can now add items to your digital bag and checkout securely. We'll handle the rest!
               </p>
             </div>
           </motion.div>
@@ -132,22 +144,36 @@ const Shop = () => {
                   }`}
               >
                 <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                  <div className="aspect-[4/3] rounded-lg overflow-hidden shadow-card">
+                  <div className="aspect-[4/3] rounded-lg overflow-hidden shadow-card relative group">
                     <img
                       src={collection.image}
                       alt={collection.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
+                    <div className="absolute inset-0 bg-black/5 group-hover:bg-black/20 transition-colors" />
+                    <div className="absolute bottom-4 right-4 animate-in fade-in slide-in-from-bottom-2">
+                      <Button
+                        onClick={() => addToCart({ id: collection.id, name: collection.title, price: collection.price, image: collection.image })}
+                        className="shadow-xl"
+                      >
+                        <ShoppingBag className="w-4 h-4 mr-2" /> Add to Bag — ${collection.price.toFixed(2)}
+                      </Button>
+                    </div>
                   </div>
                 </div>
                 <div className={index % 2 === 1 ? "lg:order-1" : ""}>
-                  <h2 className="font-display text-3xl md:text-4xl text-foreground mb-4">
-                    {collection.title}
-                  </h2>
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="font-display text-3xl md:text-4xl text-foreground">
+                      {collection.title}
+                    </h2>
+                    <span className="text-2xl font-body text-primary font-semibold">
+                      ${collection.price.toFixed(2)}
+                    </span>
+                  </div>
                   <p className="text-lg text-muted-foreground mb-6 italic">
                     {collection.description}
                   </p>
-                  <ul className="grid grid-cols-2 gap-2 mb-6">
+                  <ul className="grid grid-cols-2 gap-2 mb-8">
                     {collection.items.map((item) => (
                       <li
                         key={item}
@@ -158,6 +184,14 @@ const Shop = () => {
                       </li>
                     ))}
                   </ul>
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="w-full sm:w-auto"
+                    onClick={() => addToCart({ id: collection.id, name: collection.title, price: collection.price, image: collection.image })}
+                  >
+                    <ShoppingBag className="w-5 h-5 mr-2" /> Purchase {collection.title}
+                  </Button>
                 </div>
               </motion.div>
             ))}
