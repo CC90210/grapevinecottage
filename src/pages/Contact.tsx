@@ -9,8 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { contactFormSchema, checkRateLimit } from "@/lib/validation";
 
-const CONTACT_WEBHOOK_URL =
-  "https://n8n.srv993801.hstgr.cloud/webhook/098049e6-9720-4344-a045-1173c17f37ef";
+const CONTACT_WEBHOOK_URL = "/api/contact-webhook";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -62,9 +61,7 @@ const Contact = () => {
         source: "website_contact_form",
       };
 
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 15000);
-
+      console.log(`[Contact] Submitting form via proxy: ${CONTACT_WEBHOOK_URL}`);
       const response = await fetch(CONTACT_WEBHOOK_URL, {
         method: "POST",
         headers: {
@@ -72,13 +69,12 @@ const Contact = () => {
           Accept: "application/json, text/plain, */*",
         },
         body: JSON.stringify(payload),
-        signal: controller.signal,
       });
 
-      clearTimeout(timeoutId);
+      console.log(`[Contact] Response status: ${response.status}`);
 
       if (!response.ok) {
-        throw new Error(`Failed to send message`);
+        throw new Error(`Failed to send message: ${response.statusText}`);
       }
 
       toast({
@@ -88,7 +84,7 @@ const Contact = () => {
 
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
-      console.error("Contact form error:", error);
+      console.error("[Contact] Form submission error:", error);
 
       // Provide helpful fallback instead of just failing
       toast({

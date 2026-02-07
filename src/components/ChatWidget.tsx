@@ -6,7 +6,7 @@ interface Message {
   content: string;
 }
 
-const WEBHOOK_URL = "https://n8n.srv993801.hstgr.cloud/webhook/4608e17f-7b99-4a80-bc11-34781dd8376c";
+const WEBHOOK_URL = "/api/chat-webhook";
 
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,6 +49,7 @@ const ChatWidget = () => {
     setIsLoading(true);
 
     try {
+      console.log(`[ChatWidget] Sending message via proxy: ${WEBHOOK_URL}`);
       const response = await fetch(WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -64,15 +65,19 @@ const ChatWidget = () => {
         }),
       });
 
+      console.log(`[ChatWidget] Response status: ${response.status}`);
       const rawText = await response.text();
       let botResponse = rawText;
       try {
         const json = JSON.parse(rawText);
         botResponse = json.output || json.text || json.response || json.message || rawText;
-      } catch { /* use raw text */ }
+      } catch (e) {
+        console.warn("[ChatWidget] Error parsing JSON response, using raw text", e);
+      }
 
       setMessages((prev) => [...prev, { role: "assistant", content: botResponse }]);
-    } catch {
+    } catch (error) {
+      console.error("[ChatWidget] Webhook error:", error);
       setMessages((prev) => [...prev, { role: "assistant", content: "Oops! Something went wrong. Call us at (705) 445-8001!" }]);
     } finally {
       setIsLoading(false);

@@ -14,6 +14,14 @@
     ],
     "rewrites": [
         {
+            "source": "/api/chat-webhook",
+            "destination": "https://n8n.srv993801.hstgr.cloud/webhook/4608e17f-7b99-4a80-bc11-34781dd8376c"
+        },
+        {
+            "source": "/api/contact-webhook",
+            "destination": "https://n8n.srv993801.hstgr.cloud/webhook/098049e6-9720-4344-a045-1173c17f37ef"
+        },
+        {
             "source": "/(.*)",
             "destination": "/index.html"
         }
