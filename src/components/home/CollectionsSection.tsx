@@ -2,55 +2,48 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import SectionHeading from "@/components/ui/section-heading";
 import homeDecorImg from "@/assets/store-vintage-decor.jpg";
-import fashionImg from "@/assets/category-fashion.jpg";
-import jewelryImg from "@/assets/category-jewelry.jpg";
-import wellnessImg from "@/assets/category-wellness.jpg";
+import clockImg from "/images/products/media__1770950126264.jpg";
+import puzzleImg from "/images/products/media__1770952942710.jpg";
+import glasswareImg from "/images/products/media__1770951392657.jpg";
 import gardenImg from "@/assets/store-butterfly-markers.jpg";
-import giftsImg from "@/assets/store-friends-sign.jpg";
-import accessoriesImg from "@/assets/store-couples-keychains.jpg";
+import wellnessImg from "/images/products/media__1770951313247.jpg";
 
 const collections = [
   {
     title: "Home Décor",
-    description: "Things that make your space feel like you",
+    description: "Unique accents that make your space feel like home",
     image: homeDecorImg,
-    link: "/shop#home-decor",
+    link: "/shop#decor",
   },
   {
-    title: "Jewelry",
-    description: "Little treasures that tell stories",
-    image: jewelryImg,
-    link: "/shop#jewelry",
+    title: "Vintage Clocks",
+    description: "Timeless statement pieces for every room",
+    image: clockImg,
+    link: "/shop#clocks",
   },
   {
-    title: "Accessories & Gifts",
-    description: "Keychains, bags & perfect presents",
-    image: accessoriesImg,
-    link: "/shop#accessories",
+    title: "Artisan Puzzles",
+    description: "Intricate laser-cut wooden challenges",
+    image: puzzleImg,
+    link: "/shop#puzzles",
+  },
+  {
+    title: "Glassware",
+    description: "Celebration-ready glass with gold detailing",
+    image: glasswareImg,
+    link: "/shop#glassware",
   },
   {
     title: "Garden & Outdoor",
-    description: "Magic for your outdoor spaces",
+    description: "Peaceful melodies and garden magic",
     image: gardenImg,
     link: "/shop#garden",
   },
   {
-    title: "Wellness & Spirituality",
-    description: "Peace for your soul",
+    title: "Wellness",
+    description: "Crystal suncatchers and serene find",
     image: wellnessImg,
     link: "/shop#wellness",
-  },
-  {
-    title: "Clothing & Fashion",
-    description: "Style that feels as good as it looks",
-    image: fashionImg,
-    link: "/shop#fashion",
-  },
-  {
-    title: "Seasonal & Holiday",
-    description: "The perfect 'just because'",
-    image: giftsImg,
-    link: "/shop#seasonal",
   },
 ];
 

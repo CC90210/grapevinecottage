@@ -10,7 +10,6 @@ const navLinks = [
   { name: "Home", path: "/" },
   { name: "About", path: "/about" },
   { name: "Shop", path: "/shop" },
-  { name: "Cottage Finds", path: "/cottage-finds" },
   { name: "Events", path: "/events" },
   { name: "Visit Us", path: "/visit" },
   { name: "Contact", path: "/contact" },
@@ -50,8 +49,8 @@ const Header = () => {
                 key={link.path}
                 to={link.path}
                 className={`font-body text-sm tracking-wide transition-colors hover:text-primary ${location.pathname === link.path
-                    ? "text-primary font-medium"
-                    : "text-foreground/80"
+                  ? "text-primary font-medium"
+                  : "text-foreground/80"
                   }`}
               >
                 {link.name}
@@ -128,8 +127,8 @@ const Header = () => {
                   to={link.path}
                   onClick={() => setIsOpen(false)}
                   className={`font-body text-lg py-2 transition-colors ${location.pathname === link.path
-                      ? "text-primary font-medium"
-                      : "text-foreground/80"
+                    ? "text-primary font-medium"
+                    : "text-foreground/80"
                     }`}
                 >
                   {link.name}

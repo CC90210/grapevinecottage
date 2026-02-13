@@ -1,6 +1,6 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { MapPin, Phone, Store, ShoppingBag, Filter, Sparkles, ChevronRight } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import SEO from "@/components/SEO";
@@ -14,18 +14,24 @@ const categories = [
   { id: "all", label: "All Treasures" },
   { id: "clocks", label: "Clocks" },
   { id: "decor", label: "Home Decor" },
-  { id: "jewelry", label: "Jewelry" },
   { id: "wellness", label: "Wellness" },
   { id: "garden", label: "Garden" },
   { id: "glassware", label: "Glassware" },
   { id: "puzzles", label: "Puzzles" },
   { id: "signs", label: "Signs" },
-  { id: "fashion", label: "Fashion" },
 ];
 
 const Shop = () => {
   const { addToCart } = useCart();
+  const location = useLocation();
   const [activeCategory, setActiveCategory] = useState("all");
+
+  useEffect(() => {
+    const hash = location.hash.replace("#", "");
+    if (hash && categories.some(cat => cat.id === hash)) {
+      setActiveCategory(hash);
+    }
+  }, [location.hash]);
 
   const filteredProducts = useMemo(() => {
     if (activeCategory === "all") return products;
@@ -36,7 +42,7 @@ const Shop = () => {
     <Layout>
       <SEO
         title="Unique Shop | Curated Home Decor & Handcrafted Gifts"
-        description="Explore the full collection at Grapevine Cottage. From vintage clocks to handcrafted jewelry and unique wooden puzzles. Browse our curated selection today."
+        description="Explore the full collection at Grapevine Cottage. From vintage clocks to artisan glassware and unique wooden puzzles. Browse our curated selection today."
       />
 
       {/* Hero Section with Glassmorphism */}

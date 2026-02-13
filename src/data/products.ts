@@ -5,7 +5,7 @@ export interface Product {
     image: string;
     description: string;
     items: string[];
-    category: "clocks" | "signs" | "puzzles" | "glassware" | "decor" | "jewelry" | "garden" | "wellness" | "fashion" | "seasonal";
+    category: "clocks" | "signs" | "puzzles" | "glassware" | "decor" | "garden" | "wellness";
 }
 
 export const products: Product[] = [
@@ -116,50 +116,5 @@ export const products: Product[] = [
         description: "Exquisite hand-painted wine and stemless glasses by Lolita. Featuring vibrant 'Queen Bee' and 'Dragonfly' designs, each glass is a unique work of art.",
         items: ["Artist hand-painted", "Unique 'Lolita' designs", "Stemless & traditional options", "Signature decorative gift box"],
         category: "glassware"
-    },
-    {
-        id: "jewelry-collection",
-        title: "Handcrafted Jewelry",
-        price: 58.00,
-        image: "/assets/jewelry-display.jpg",
-        description: "Our jewelry collection is full of little treasures — Hazelwood necklaces, snowflake earrings that come gift-boxed with poems, and one-of-a-kind pieces you won't find anywhere else.",
-        items: ["Handcrafted earrings & necklaces", "Bracelets & rings", "Local artisan pieces", "Statement & everyday jewelry"],
-        category: "jewelry"
-    },
-    {
-        id: "garden-outdoor-decor",
-        title: "Garden & Outdoor",
-        price: 39.00,
-        image: "/assets/store-butterfly-markers.jpg",
-        description: "Wind chimes that sing, sun catchers that sparkle, solar butterflies that surprise — if it brings joy to your garden, we probably have it.",
-        items: ["Planters & garden decor", "Wind chimes & bird feeders", "Patio accents", "Solar decorations"],
-        category: "garden"
-    },
-    {
-        id: "wellness-spiritual",
-        title: "Wellness & Spirituality",
-        price: 48.00,
-        image: "/assets/product-display-cabinet.jpg",
-        description: "Himalayan salt lamps, crystals, candles, and things that help you find your calm. Because we all need a little peace.",
-        items: ["Crystals & essential oils", "Sage & meditation tools", "Journals & self-care", "Himalayan salt lamps"],
-        category: "wellness"
-    },
-    {
-        id: "boutique-fashion",
-        title: "Clothing & Fashion",
-        price: 65.00,
-        image: "/assets/category-fashion.jpg",
-        description: "Unique clothing pieces and seasonal fashion items that feel as good as they look. Style with personality.",
-        items: ["Unique clothing pieces", "Seasonal fashion items", "New arrivals coming soon!", "Fair trade options"],
-        category: "fashion"
-    },
-    {
-        id: "seasonal-treasures",
-        title: "Seasonal & Holiday",
-        price: 28.00,
-        image: "/assets/store-friends-sign.jpg",
-        description: "Rotating seasonal decor and holiday-specific items that make every celebration special. Limited edition pieces you won't want to miss.",
-        items: ["Rotating seasonal decor", "Holiday-specific items", "Limited edition pieces", "Festive treasures"],
-        category: "seasonal"
     },
 ];
