@@ -2,10 +2,11 @@ import { motion } from "framer-motion";
 import Layout from "@/components/layout/Layout";
 import SEO from "@/components/SEO";
 import { useCart } from "@/context/CartContext";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag, Heart, ExternalLink, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import SectionHeading from "@/components/ui/section-heading";
 
-// Import all cottage finds images
+// Image imports
 import hotAirBalloonLantern from "@/assets/cottage-finds/hot-air-balloon-lantern.jpg";
 import birchForestArt from "@/assets/cottage-finds/birch-forest-art.jpg";
 import wishingThreadCrystals from "@/assets/cottage-finds/wishing-thread-crystals.jpg";
@@ -16,93 +17,156 @@ import jewelryDisplay from "@/assets/cottage-finds/jewelry-display.jpg";
 import turquoiseCabinetGifts from "@/assets/cottage-finds/turquoise-cabinet-gifts.jpg";
 
 const cottageFinds = [
-  { id: "find-1", name: "Glass Hot Air Balloon Lantern", price: 48.00, image: hotAirBalloonLantern, alt: "Blue and purple gradient hot air balloon glass lantern" },
-  { id: "find-2", name: "Birch Forest Canvas Art", price: 85.00, image: birchForestArt, alt: "Textured birch forest canvas art" },
-  { id: "find-3", name: "Eternity Wishing Thread", price: 24.00, image: wishingThreadCrystals, alt: "Eternity Crystal Wishing Thread display" },
-  { id: "find-4", name: "Umbrella Wall Hooks", price: 32.00, image: umbrellaHooks, alt: "Colorful umbrella wall hooks" },
-  { id: "find-5", name: "Meow Graphic Tee", price: 38.00, image: meowCatTshirt, alt: "Purple cat graphic t-shirt" },
-  { id: "find-6", name: "Maple Leaf Metal Art", price: 65.00, image: mapleLeafDecor, alt: "Red maple leaf metal wall art" },
-  { id: "find-7", name: "Artisan Jewelry Set", price: 42.00, image: jewelryDisplay, alt: "Artisan jewelry and necklace display" },
-  { id: "find-8", name: "Handcrafted Gift Set", price: 55.00, image: turquoiseCabinetGifts, alt: "Turquoise cabinet with curated gifts and soaps" },
+  {
+    id: "find-1",
+    name: "Glass Hot Air Balloon Lantern",
+    price: 48.00,
+    image: hotAirBalloonLantern,
+    category: "Decor",
+    description: "Whimsical hand-blown glass lanterns that catch the morning light."
+  },
+  {
+    id: "find-2",
+    name: "Birch Forest Canvas Art",
+    price: 85.00,
+    image: birchForestArt,
+    category: "Art",
+    description: "Textured mixed-media canvas capturing the peace of our local forests."
+  },
+  {
+    id: "find-3",
+    name: "Eternity Wishing Thread",
+    price: 24.00,
+    image: wishingThreadCrystals,
+    category: "Spiritual",
+    description: "Crystal suncatchers that fill your room with rainbows."
+  },
+  {
+    id: "find-4",
+    name: "Umbrella Wall Hooks",
+    price: 32.00,
+    image: umbrellaHooks,
+    category: "Home",
+    description: "Cheerful organization for your entryway or cottage mudroom."
+  },
+  {
+    id: "find-5",
+    name: "Meow Graphic Tee",
+    price: 38.00,
+    image: meowCatTshirt,
+    category: "Apparel",
+    description: "Soft cotton comfort with a touch of feline personality."
+  },
+  {
+    id: "find-6",
+    name: "Maple Leaf Metal Art",
+    price: 65.00,
+    image: mapleLeafDecor,
+    category: "Art",
+    description: "Locally inspired metalwork with a brilliant crimson finish."
+  },
+  {
+    id: "find-7",
+    name: "Artisan Jewelry Set",
+    price: 42.00,
+    image: jewelryDisplay,
+    category: "Jewelry",
+    description: "One-of-a-kind necklaces and earrings from local craftspeople."
+  },
+  {
+    id: "find-8",
+    name: "Handcrafted Gift Set",
+    price: 55.00,
+    image: turquoiseCabinetGifts,
+    category: "Curated",
+    description: "A thoughtful selection of artisanal soaps and cottage essentials."
+  },
 ];
 
 const CottageFinds = () => {
   const { addToCart } = useCart();
+
   return (
     <Layout>
       <SEO
-        title="Cottage Finds | Unique Treasures & Local Artisan Crafts"
-        description="Discover our curated gallery of Cottage Finds. From handcrafted lanterns to local art and specialty jewelry, explore the unique items that make Grapevine Cottage special."
+        title="Cottage Finds Gallery | Unique Treasures in Collingwood"
+        description="Discover our rotating gallery of curated cottage finds. Hand-picked treasures from local artisans and global discoveries."
       />
 
-      {/* Hero Section */}
-      <section className="relative py-20 md:py-28 bg-gradient-to-b from-primary/5 to-background">
+      {/* Hero */}
+      <section className="relative pt-40 pb-20 bg-secondary/20">
         <div className="container mx-auto px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
           >
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-primary mb-4">
-              Cottage Finds
+            <span className="font-script text-3xl text-primary block mb-2">Curated With Love</span>
+            <h1 className="font-display text-5xl md:text-7xl text-foreground mb-6">
+              The Gallery of <span className="text-primary italic">Finds</span>
             </h1>
-            <p className="font-script text-2xl md:text-3xl text-accent mb-6">
-              Where you find things you never knew you wanted
-            </p>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-              Each piece in our shop has a story waiting to become part of yours.
-              Browse our curated collection of unique treasures, handpicked with love.
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto italic font-light">
+              "A collection that changes like the seasons, always holding a new discovery."
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Featured Finds Grid */}
-      <section className="py-20 bg-background">
+      {/* Gallery Grid */}
+      <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
             {cottageFinds.map((find, index) => (
               <motion.div
                 key={find.id}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group flex flex-col"
+                transition={{ duration: 0.6, delay: index * 0.05 }}
+                className="group flex flex-col items-center text-center"
               >
-                <div className="aspect-square rounded-lg overflow-hidden bg-secondary relative mb-4 shadow-sm border border-border">
+                <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden shadow-card hover:shadow-elevated transition-shadow duration-500 mb-8 border border-border/40">
                   <img
                     src={find.image}
-                    alt={find.alt}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    alt={find.name}
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                  <div className="absolute top-4 right-4 translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300">
+                    <button className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm text-primary flex items-center justify-center hover:bg-primary hover:text-white shadow-lg transition-colors">
+                      <Heart className="w-5 h-5" />
+                    </button>
+                  </div>
+
+                  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 w-[80%]">
                     <Button
                       onClick={() => addToCart({ id: find.id, name: find.name, price: find.price, image: find.image })}
-                      className="rounded-full shadow-lg"
+                      className="w-full h-12 rounded-full shadow-2xl bg-white text-primary hover:bg-primary hover:text-white border-0 font-bold"
                     >
-                      Add to Bag
+                      Quick Bag — ${find.price.toFixed(2)}
                     </Button>
                   </div>
                 </div>
-                <div className="flex flex-col flex-1">
-                  <div className="flex justify-between items-start gap-2 mb-1">
-                    <h3 className="font-display text-lg text-foreground group-hover:text-primary transition-colors">
-                      {find.name}
-                    </h3>
-                  </div>
-                  <p className="text-primary font-body font-semibold text-lg mb-3">
-                    ${find.price.toFixed(2)}
+
+                <div className="space-y-3">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary/60">
+                    {find.category}
+                  </span>
+                  <h3 className="font-display text-2xl text-foreground group-hover:text-primary transition-colors">
+                    {find.name}
+                  </h3>
+                  <p className="text-sm text-muted-foreground italic leading-relaxed px-4">
+                    {find.description}
                   </p>
                   <Button
-                    variant="ghost"
-                    size="sm"
-                    className="mt-auto w-fit px-0 text-primary hover:text-primary/80 hover:bg-transparent"
+                    variant="link"
+                    className="text-primary font-bold h-auto p-0 hover:no-underline group/link"
                     onClick={() => addToCart({ id: find.id, name: find.name, price: find.price, image: find.image })}
                   >
-                    <ShoppingBag className="w-4 h-4 mr-2" /> Add to Bag
+                    Experience This Treasure
+                    <ExternalLink className="w-3 h-3 ml-2 group-hover/link:translate-x-1 transition-transform" />
                   </Button>
                 </div>
               </motion.div>
@@ -110,18 +174,23 @@ const CottageFinds = () => {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-center mt-16"
+            className="mt-32 p-12 rounded-[3rem] bg-accent/10 border border-accent/20 text-center relative overflow-hidden"
           >
-            <p className="text-muted-foreground text-lg mb-4">
-              Want to see more? New treasures arrive weekly!
+            <Sparkles className="absolute top-10 left-10 w-12 h-12 text-accent/20 animate-pulse" />
+            <Sparkles className="absolute bottom-10 right-10 w-8 h-8 text-accent/20 animate-pulse delay-700" />
+
+            <h2 className="font-script text-4xl text-primary mb-6">Discovery Awaits</h2>
+            <p className="text-2xl font-display text-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
+              Our online gallery is just a glimpse. New treasures arrive weekly in-store that never even make it to the website.
             </p>
-            <p className="font-script text-2xl text-primary">
-              Visit us in-store to discover the full collection
-            </p>
+            <Button asChild size="lg" className="h-14 px-10 rounded-full text-lg">
+              <a href="https://maps.google.com/?q=191+Hurontario+Street+Unit+2+Collingwood+Ontario+L9Y+2M1" target="_blank" rel="noreferrer">
+                Plan a Treasure Hunt
+              </a>
+            </Button>
           </motion.div>
         </div>
       </section>
