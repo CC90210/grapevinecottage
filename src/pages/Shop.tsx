@@ -1,30 +1,23 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { MapPin, Phone, Store, Plus } from "lucide-react";
+import { MapPin, Phone, Store, ShoppingBag } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import SEO from "@/components/SEO";
 import SectionHeading from "@/components/ui/section-heading";
 import { Button } from "@/components/ui/button";
+
+// Category fallback images
 import homeDecorImg from "@/assets/owl-collection.jpg";
-import fashionImg from "@/assets/category-fashion.jpg";
 import jewelryImg from "@/assets/jewelry-display.jpg";
-import wellnessImg from "@/assets/product-display-cabinet.jpg";
 import gardenImg from "@/assets/store-butterfly-markers.jpg";
+import wellnessImg from "@/assets/product-display-cabinet.jpg";
+import fashionImg from "@/assets/category-fashion.jpg";
 import giftsImg from "@/assets/store-friends-sign.jpg";
 import accessoriesImg from "@/assets/store-couples-keychains.jpg";
 
 import { useCart } from "@/context/CartContext";
-import { ShoppingBag } from "lucide-react";
 
 const shopItems = [
-  {
-    id: "industrial-clock",
-    title: "Vintage Sage Industrial Clock",
-    price: 75.00,
-    image: "/images/products/media__1770950754480.jpg",
-    description: "Striking industrial-style wall clock with exposed moving gears. The muted sage green frame adds a touch of cottage charm to this mechanical statement piece.",
-    items: ["Exposed moving gears", "Sage green metal frame", "Vintage-chic aesthetic", "Battery operated"],
-  },
   {
     id: "sunflower-clock",
     title: "Gilded Sunflower Wall Clock",
@@ -34,47 +27,15 @@ const shopItems = [
     items: ["Gold/bronze finish", "Large petal design", "Quiet movement", "Easy wall mount"],
   },
   {
-    id: "buddha-statue",
-    title: "Serenity Buddha Statue",
-    price: 42.00,
-    image: "/images/products/media__1770950126261.jpg",
-    description: "Bring peace and tranquility to your home with this beautiful seated Buddha. The cream and gold finish highlights the intricate details of this spiritual accent.",
-    items: ["Cream & gold finish", "Detailed craftsmanship", "Perfect for meditation spaces", "Stable base"],
+    id: "industrial-sage-clock",
+    title: "Grand Cafe Market Clock",
+    price: 85.00,
+    image: "/images/products/media__1770950754480.jpg",
+    description: "A monumental oversized clock with a weathered green finish and Roman numerals. This piece captures the essence of a European vintage marketplace.",
+    items: ["Oversized statement piece", "Weathered sage finish", "Roman numeral display", "Classic vintage design"],
   },
   {
-    id: "believe-sign-pink",
-    title: "Vintage 'Believe' Sign",
-    price: 15.00,
-    image: "/images/products/media__1770950126264.jpg",
-    description: "A sweet daily reminder in a distressed pink block lettering style. Perfectly at home in a nursery, bedroom, or any cozy nook.",
-    items: ["Distressed wooden finish", "Pink glitter accents", "Free-standing display", "Shabby-chic style"],
-  },
-  {
-    id: "vintage-oval-clock",
-    title: "Vintage Original Oval Clock",
-    price: 48.00,
-    image: "/images/products/media__1770950742735.jpg",
-    description: "A classic oval wall clock with a retro pin-up style graphic and bold numerals. This piece adds a touch of 1950s nostalgia to your decor.",
-    items: ["Retro oval shape", "Nostalgic graphics", "Bold legible numbers", "Easy to hang"],
-  },
-  {
-    id: "home-family-sign",
-    title: "In Our Home Family Sign",
-    price: 45.00,
-    image: "/images/products/media__1770950317651.jpg",
-    description: "A large vertical wooden sign celebrating the values that make a house a home. This rustic piece adds warmth and character to your entryway or living space.",
-    items: ["Rustic wood planks", "Bold typography", "Motivational home values", "Horizontal hanging wire"],
-  },
-  {
-    id: "bunny-basket",
-    title: "Floral Bunny Garden Figurine",
-    price: 35.00,
-    image: "/images/products/media__1770950126162.jpg",
-    description: "A whimsical ceramic bunny wearing a crown of flowers and holding a woven basket. Perfect for spring decor or as a unique planter alternative.",
-    items: ["Hand-painted details", "Floral crown accent", "Functional basket bowl", "Indoor/Outdoor safe"],
-  },
-  {
-    id: "white-gear-clock",
+    id: "square-gear-clock",
     title: "Modern Mechanical Wall Clock",
     price: 65.00,
     image: "/images/products/media__1770950754402.jpg",
@@ -82,7 +43,47 @@ const shopItems = [
     items: ["Moving gear mechanism", "Square white frame", "Industrial modern style", "Battery operated"],
   },
   {
-    id: "wishing-threads",
+    id: "believe-metal-sign",
+    title: "Vintage 'Believe' Sign",
+    price: 15.00,
+    image: "/images/products/media__1770950126264.jpg",
+    description: "A rustic metal 'Believe' wordmark perched atop a wooden base with miniature evergreen trees. A perfect touch of inspiration for your mantel or desk.",
+    items: ["Metal wordmark", "Solid wood base", "Decorative tree accents", "Inspirational desk piece"],
+  },
+  {
+    id: "pinup-oval-clock",
+    title: "Vintage Original Oval Clock",
+    price: 48.00,
+    image: "/images/products/media__1770950742735.jpg",
+    description: "A classic oval wall clock with a retro pin-up style graphic and bold numerals. This piece adds a touch of 1950s nostalgia to your decor.",
+    items: ["Retro oval shape", "Nostalgic graphics", "Bold legible numbers", "Easy to hang"],
+  },
+  {
+    id: "seated-buddha",
+    title: "Serenity Buddha Statue",
+    price: 42.00,
+    image: "/images/products/media__1770950126261.jpg",
+    description: "Bring peace and tranquility to your home with this beautiful seated Buddha. The cream and gold finish highlights the intricate details of this spiritual accent.",
+    items: ["Cream & gold finish", "Detailed craftsmanship", "Perfect for meditation spaces", "Stable base"],
+  },
+  {
+    id: "vertical-family-sign",
+    title: "In Our Home Family Values Sign",
+    price: 45.00,
+    image: "/images/products/media__1770950317651.jpg",
+    description: "A large vertical wooden sign celebrating the values that make a house a home. This rustic piece adds warmth and character to your entryway or living space.",
+    items: ["Rustic wood planks", "Bold typography", "Motivational home values", "Horizontal hanging wire"],
+  },
+  {
+    id: "bunny-basket-ceramic",
+    title: "Floral Bunny Garden Figurine",
+    price: 35.00,
+    image: "/images/products/media__1770950126162.jpg",
+    description: "A whimsical ceramic bunny wearing a crown of flowers and holding a woven basket. Perfect for spring decor or as a unique planter alternative.",
+    items: ["Hand-painted details", "Floral crown accent", "Functional basket bowl", "Indoor/Outdoor safe"],
+  },
+  {
+    id: "wishing-threads-set",
     title: "Eternity Crystal Wishing Threads",
     price: 20.00,
     image: "/images/products/media__1770951313247.jpg",
@@ -90,15 +91,15 @@ const shopItems = [
     items: ["Genuine crystal pendant", "Silver-tone charms", "Angels, Fairies & Unicorns", "Gift boxed with sentiment"],
   },
   {
-    id: "birthday-glasses",
-    title: "Milestone Celebration Glassware",
+    id: "milestone-glassware",
+    title: "Milestone Celebration Beer Glass",
     price: 24.00,
     image: "/images/products/media__1770951392657.jpg",
-    description: "Toast to the big milestones with our '30 Looks Good On You' and '40 & Totally Fabulous' glassware. Sparkling details for a sparkling celebration.",
+    description: "Toast to the big milestones with our '30 Looks Good On You' glassware. Sparkling details for a sparkling celebration.",
     items: ["Milestone age designs", "Gold glitter accents", "Elegant tall glassware", "Perfect birthday gift"],
   },
   {
-    id: "lolita-wine-glasses",
+    id: "lolita-designer-glass",
     title: "Lolita Hand-Painted Wine Glasses",
     price: 38.00,
     image: "/images/products/media__1770951392658.jpg",
@@ -106,31 +107,15 @@ const shopItems = [
     items: ["Artist hand-painted", "Unique 'Lolita' designs", "Stemless & traditional options", "Signature decorative gift box"],
   },
   {
-    id: "home-decor",
-    title: "Home Décor Collections",
-    price: 45.00,
-    description: "From metal wall art to vintage-style frames, these are the pieces that turn a house into your home. I'm always on the hunt for things that make you stop and say, 'I need that.'",
-    image: homeDecorImg,
-    items: ["Wall art & candles", "Mirrors & decorative pieces", "Vintage-inspired accents", "Modern home touches"],
-  },
-  {
-    id: "jewelry",
-    title: "Jewelry",
+    id: "jewelry-collection",
+    title: "Handcrafted Jewelry",
     price: 58.00,
     description: "Our jewelry collection is full of little treasures — Hazelwood necklaces, snowflake earrings that come gift-boxed with poems, and one-of-a-kind pieces you won't find anywhere else.",
     image: jewelryImg,
     items: ["Handcrafted earrings & necklaces", "Bracelets & rings", "Local artisan pieces", "Statement & everyday jewelry"],
   },
   {
-    id: "accessories",
-    title: "Accessories & Gifts",
-    price: 32.00,
-    description: "The perfect present for the person who has everything. Keychains, bags, wallets, scarves — small treasures that make big impressions.",
-    image: accessoriesImg,
-    items: ["Keychains", "Bags & wallets", "Scarves & accessories", "Hostess gifts & trinkets"],
-  },
-  {
-    id: "garden",
+    id: "garden-outdoor-decor",
     title: "Garden & Outdoor",
     price: 39.00,
     description: "Wind chimes that sing, sun catchers that sparkle, solar butterflies that surprise — if it brings joy to your garden, we probably have it.",
@@ -138,7 +123,7 @@ const shopItems = [
     items: ["Planters & garden decor", "Wind chimes & bird feeders", "Patio accents", "Solar decorations"],
   },
   {
-    id: "wellness",
+    id: "wellness-spiritual",
     title: "Wellness & Spirituality",
     price: 48.00,
     description: "Himalayan salt lamps, crystals, candles, and things that help you find your calm. Because we all need a little peace.",
@@ -146,7 +131,7 @@ const shopItems = [
     items: ["Crystals & essential oils", "Sage & meditation tools", "Journals & self-care", "Himalayan salt lamps"],
   },
   {
-    id: "fashion",
+    id: "boutique-fashion",
     title: "Clothing & Fashion",
     price: 65.00,
     description: "Unique clothing pieces and seasonal fashion items that feel as good as they look. Style with personality.",
@@ -154,7 +139,7 @@ const shopItems = [
     items: ["Unique clothing pieces", "Seasonal fashion items", "New arrivals coming soon!", "Fair trade options"],
   },
   {
-    id: "seasonal",
+    id: "seasonal-treasures",
     title: "Seasonal & Holiday",
     price: 28.00,
     description: "Rotating seasonal decor and holiday-specific items that make every celebration special. Limited edition pieces you won't want to miss.",
@@ -232,7 +217,7 @@ const Shop = () => {
                   }`}
               >
                 <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                  <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl relative group border border-border/50">
+                  <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl relative group border border-border/50 bg-accent/5">
                     <img
                       src={item.image}
                       alt={item.title}
