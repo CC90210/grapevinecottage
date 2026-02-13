@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { MapPin, Phone, Store } from "lucide-react";
+import { MapPin, Phone, Store, Plus } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import SEO from "@/components/SEO";
 import SectionHeading from "@/components/ui/section-heading";
@@ -75,6 +75,79 @@ const collections = [
   },
 ];
 
+const newArrivals = [
+  {
+    id: "industrial-clock",
+    name: "Vintage Sage Industrial Gear Clock",
+    price: 75.00,
+    image: "/src/assets/products/industrial-clock.jpg",
+    description: "Striking industrial wall clock with exposed moving gears in sage green."
+  },
+  {
+    id: "sunflower-clock",
+    name: "Radiant Gilded Sunflower Wall Clock",
+    price: 50.00,
+    image: "/src/assets/products/sunflower-clock.jpg",
+    description: "Large gold-metal sunflower clock with intricate petal burst design."
+  },
+  {
+    id: "buddha-statue",
+    name: "Seated Serenity Buddha Statue",
+    price: 42.00,
+    image: "/src/assets/products/buddha-statue.jpg",
+    description: "Large seated Buddha figurine in a delicate cream and gold finish."
+  },
+  {
+    id: "believe-sign",
+    name: "Distressed Pink 'Believe' Sign",
+    price: 15.00,
+    image: "/src/assets/products/believe-sign.jpg",
+    description: "Charming wooden block lettering with a vintage distressed finish."
+  },
+  {
+    id: "corinthian-columns",
+    name: "Classic White Corinthian Pillars",
+    price: 50.00,
+    image: "/src/assets/products/corinthian-columns.jpg",
+    description: "Pair of decorative white plaster-style architectural columns."
+  },
+  {
+    id: "easter-bunnies",
+    name: "Hand-Painted Ceramic Bunny",
+    price: 8.00,
+    image: "/src/assets/products/easter-bunnies.jpg",
+    description: "Whimsical ceramic figurines with delicate seasonal floral details."
+  },
+  {
+    id: "pink-lamp",
+    name: "Retro Pink Gooseneck Task Lamp",
+    price: 24.00,
+    image: "/src/assets/products/pink-lamp.jpg",
+    description: "Adjustable desk lamp in a nostalgic soft pink vintage-chic finish."
+  },
+  {
+    id: "wind-chimes",
+    name: "Memorial Decorative Wind Chimes",
+    price: 30.00,
+    image: "/src/assets/products/wind-chimes.jpg",
+    description: "Boxed chimes with 'In Loving Memory' motifs and soothing tones."
+  },
+  {
+    id: "scent-sachets",
+    name: "Burlap Aromatic Scent Sachets",
+    price: 5.00,
+    image: "/src/assets/products/scent-sachets.jpg",
+    description: "Handmade fabric bags filled with fresh meadow scents for drawers."
+  },
+  {
+    id: "garden-frogs",
+    name: "Artisanal Ceramic Garden Frogs",
+    price: 10.00,
+    image: "/src/assets/products/garden-frogs.jpg",
+    description: "Playful ceramic frog accents perched on vibrant green lily pads."
+  }
+];
+
 const Shop = () => {
   const { addToCart } = useCart();
 
@@ -125,6 +198,68 @@ const Shop = () => {
               </p>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Latest Treasures Grid */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <SectionHeading
+            scriptTitle="New in Store"
+            title="Latest Treasures"
+            subtitle="Freshly curated finds from our recent discoveries. Each piece is unique and ready for a new home."
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mt-12">
+            {newArrivals.map((product, index) => (
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
+                className="group flex flex-col bg-accent/5 rounded-xl border border-primary/10 overflow-hidden hover:shadow-card transition-all duration-300"
+              >
+                <div className="aspect-square relative overflow-hidden">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                  <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Button
+                      size="sm"
+                      onClick={() => addToCart({ id: product.id, name: product.name, price: product.price, image: product.image })}
+                      className="rounded-full h-8 w-8 p-0"
+                    >
+                      <Plus className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+                <div className="p-4 flex flex-col flex-1">
+                  <h3 className="font-display text-base text-foreground mb-1 group-hover:text-primary transition-colors">
+                    {product.name}
+                  </h3>
+                  <p className="text-xs text-muted-foreground line-clamp-2 mb-3 italic">
+                    {product.description}
+                  </p>
+                  <div className="mt-auto flex items-center justify-between">
+                    <span className="text-primary font-body font-bold">
+                      ${product.price.toFixed(2)}
+                    </span>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-8 px-2 text-xs text-primary hover:text-primary hover:bg-primary/10"
+                      onClick={() => addToCart({ id: product.id, name: product.name, price: product.price, image: product.image })}
+                    >
+                      Add to Bag
+                    </Button>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
