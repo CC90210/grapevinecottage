@@ -19,6 +19,30 @@ import { useCart } from "@/context/CartContext";
 
 const shopItems = [
   {
+    id: "stained-glass-butterfly-puzzle",
+    title: "Stained Glass Butterfly Wooden Puzzle",
+    price: 35.00,
+    image: "/images/products/media__1770952942741.jpg",
+    description: "An intricate laser-cut wooden puzzle featuring a breathtaking stained-glass butterfly design. Each piece is uniquely shaped, making for a challenging and beautiful experience.",
+    items: ["High-quality wooden pieces", "Stained-glass aesthetic", "Laser-cut precision", "Display-ready box"],
+  },
+  {
+    id: "vibrant-cat-puzzle",
+    title: "Vibrant Kaleidoscope Cat Puzzle",
+    price: 35.00,
+    image: "/images/products/media__1770952942707.jpg",
+    description: "A burst of color in every piece. This wooden puzzle showcases a majestic cat in a kaleidoscope of patterns. A perfect gift for puzzle lovers and cat enthusiasts alike.",
+    items: ["Premium wood construction", "Intense vibrant colors", "Unique piece shapes", "Whimsical artwork"],
+  },
+  {
+    id: "vertical-family-sign-new",
+    title: "In Our Home Family Values Sign",
+    price: 45.00,
+    image: "/images/products/media__1770952942710.jpg",
+    description: "A large vertical wooden sign celebrating the values that make a house a home. This rustic piece adds warmth and character to your entryway or living space.",
+    items: ["Rustic wood planks", "Bold typography", "Motivational home values", "Horizontal hanging wire"],
+  },
+  {
     id: "sunflower-clock",
     title: "Gilded Sunflower Wall Clock",
     price: 50.00,
@@ -43,14 +67,6 @@ const shopItems = [
     items: ["Moving gear mechanism", "Square white frame", "Industrial modern style", "Battery operated"],
   },
   {
-    id: "believe-metal-sign",
-    title: "Vintage 'Believe' Sign",
-    price: 15.00,
-    image: "/images/products/media__1770950126264.jpg",
-    description: "A rustic metal 'Believe' wordmark perched atop a wooden base with miniature evergreen trees. A perfect touch of inspiration for your mantel or desk.",
-    items: ["Metal wordmark", "Solid wood base", "Decorative tree accents", "Inspirational desk piece"],
-  },
-  {
     id: "pinup-oval-clock",
     title: "Vintage Original Oval Clock",
     price: 48.00,
@@ -65,14 +81,6 @@ const shopItems = [
     image: "/images/products/media__1770950126261.jpg",
     description: "Bring peace and tranquility to your home with this beautiful seated Buddha. The cream and gold finish highlights the intricate details of this spiritual accent.",
     items: ["Cream & gold finish", "Detailed craftsmanship", "Perfect for meditation spaces", "Stable base"],
-  },
-  {
-    id: "vertical-family-sign",
-    title: "In Our Home Family Values Sign",
-    price: 45.00,
-    image: "/images/products/media__1770950317651.jpg",
-    description: "A large vertical wooden sign celebrating the values that make a house a home. This rustic piece adds warmth and character to your entryway or living space.",
-    items: ["Rustic wood planks", "Bold typography", "Motivational home values", "Horizontal hanging wire"],
   },
   {
     id: "bunny-basket-ceramic",
