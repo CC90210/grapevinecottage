@@ -16,10 +16,82 @@ import accessoriesImg from "@/assets/store-couples-keychains.jpg";
 import { useCart } from "@/context/CartContext";
 import { ShoppingBag } from "lucide-react";
 
-const collections = [
+const shopItems = [
+  {
+    id: "industrial-clock",
+    title: "Vintage Sage Industrial Clock",
+    price: 75.00,
+    image: "/images/products/media__1770950126162.jpg",
+    description: "Striking industrial-style wall clock with exposed moving gears. The muted sage green frame adds a touch of cottage charm to this mechanical statement piece.",
+    items: ["Exposed moving gears", "Sage green metal frame", "Vintage-chic aesthetic", "Battery operated"],
+  },
+  {
+    id: "sunflower-clock",
+    title: "Gilded Sunflower Wall Clock",
+    price: 50.00,
+    image: "/images/products/media__1770950126258.jpg",
+    description: "A radiant burst of sunshine for your walls. This large gold-finished petal clock brings natural elegance and a touch of glam to any room.",
+    items: ["Gold/bronze finish", "Large petal design", "Quiet movement", "Easy wall mount"],
+  },
+  {
+    id: "buddha-statue",
+    title: "Serenity Buddha Statue",
+    price: 42.00,
+    image: "/images/products/media__1770950126261.jpg",
+    description: "Bring peace and tranquility to your home with this beautiful seated Buddha. The cream and gold finish highlights the intricate details of this spiritual accent.",
+    items: ["Cream & gold finish", "Detailed craftsmanship", "Perfect for meditation spaces", "Stable base"],
+  },
+  {
+    id: "believe-sign-pink",
+    title: "Vintage 'Believe' Sign",
+    price: 15.00,
+    image: "/images/products/media__1770950126264.jpg",
+    description: "A sweet daily reminder in a distressed pink block lettering style. Perfectly at home in a nursery, bedroom, or any cozy nook.",
+    items: ["Distressed wooden finish", "Pink glitter accents", "Free-standing display", "Shabby-chic style"],
+  },
+  {
+    id: "grand-cafe-clock",
+    title: "Grand Cafe Market Clock",
+    price: 85.00,
+    image: "/images/products/media__1770950754480.jpg",
+    description: "A monumental oversized clock with a weathered green finish and Roman numerals. This piece captures the essence of a European vintage marketplace.",
+    items: ["Oversized statement piece", "Weathered sage finish", "Roman numeral display", "Classic vintage design"],
+  },
+  {
+    id: "home-family-sign",
+    title: "In Our Home Family Sign",
+    price: 45.00,
+    image: "/images/products/media__1770950317651.jpg",
+    description: "A large vertical wooden sign celebrating the values that make a house a home. This rustic piece adds warmth and character to your entryway or living space.",
+    items: ["Rustic wood planks", "Bold typography", "Motivational home values", "Horizontal hanging wire"],
+  },
+  {
+    id: "bunny-basket",
+    title: "Floral Bunny Garden Figurine",
+    price: 35.00,
+    image: "/images/products/media__1770950317645.jpg",
+    description: "A whimsical ceramic bunny wearing a crown of flowers and holding a woven basket. Perfect for spring decor or as a unique planter alternative.",
+    items: ["Hand-painted details", "Floral crown accent", "Functional basket bowl", "Indoor/Outdoor safe"],
+  },
+  {
+    id: "vintage-oval-clock",
+    title: "Vintage Original Oval Clock",
+    price: 48.00,
+    image: "/images/products/media__1770950742735.jpg",
+    description: "A classic oval wall clock with a retro pin-up style graphic and bold numerals. This piece adds a touch of 1950s nostalgia to your decor.",
+    items: ["Retro oval shape", "Nostalgic graphics", "Bold legible numbers", "Easy to hang"],
+  },
+  {
+    id: "white-gear-clock",
+    title: "Modern Mechanical Wall Clock",
+    price: 65.00,
+    image: "/images/products/media__1770950754402.jpg",
+    description: "A sleek square frame encasing a complex network of moving gears. This white and silver design blends modern industrial style with mechanical wonder.",
+    items: ["Moving gear mechanism", "Square white frame", "Industrial modern style", "Battery operated"],
+  },
   {
     id: "home-decor",
-    title: "Home Décor",
+    title: "Home Décor Collections",
     price: 45.00,
     description: "From metal wall art to vintage-style frames, these are the pieces that turn a house into your home. I'm always on the hunt for things that make you stop and say, 'I need that.'",
     image: homeDecorImg,
@@ -75,79 +147,6 @@ const collections = [
   },
 ];
 
-const newArrivals = [
-  {
-    id: "industrial-clock",
-    name: "Vintage Sage Industrial Gear Clock",
-    price: 75.00,
-    image: "/src/assets/products/industrial-clock.jpg",
-    description: "Striking industrial wall clock with exposed moving gears in sage green."
-  },
-  {
-    id: "sunflower-clock",
-    name: "Radiant Gilded Sunflower Wall Clock",
-    price: 50.00,
-    image: "/src/assets/products/sunflower-clock.jpg",
-    description: "Large gold-metal sunflower clock with intricate petal burst design."
-  },
-  {
-    id: "buddha-statue",
-    name: "Seated Serenity Buddha Statue",
-    price: 42.00,
-    image: "/src/assets/products/buddha-statue.jpg",
-    description: "Large seated Buddha figurine in a delicate cream and gold finish."
-  },
-  {
-    id: "believe-sign",
-    name: "Distressed Pink 'Believe' Sign",
-    price: 15.00,
-    image: "/src/assets/products/believe-sign.jpg",
-    description: "Charming wooden block lettering with a vintage distressed finish."
-  },
-  {
-    id: "corinthian-columns",
-    name: "Classic White Corinthian Pillars",
-    price: 50.00,
-    image: "/src/assets/products/corinthian-columns.jpg",
-    description: "Pair of decorative white plaster-style architectural columns."
-  },
-  {
-    id: "easter-bunnies",
-    name: "Hand-Painted Ceramic Bunny",
-    price: 8.00,
-    image: "/src/assets/products/easter-bunnies.jpg",
-    description: "Whimsical ceramic figurines with delicate seasonal floral details."
-  },
-  {
-    id: "pink-lamp",
-    name: "Retro Pink Gooseneck Task Lamp",
-    price: 24.00,
-    image: "/src/assets/products/pink-lamp.jpg",
-    description: "Adjustable desk lamp in a nostalgic soft pink vintage-chic finish."
-  },
-  {
-    id: "wind-chimes",
-    name: "Memorial Decorative Wind Chimes",
-    price: 30.00,
-    image: "/src/assets/products/wind-chimes.jpg",
-    description: "Boxed chimes with 'In Loving Memory' motifs and soothing tones."
-  },
-  {
-    id: "scent-sachets",
-    name: "Burlap Aromatic Scent Sachets",
-    price: 5.00,
-    image: "/src/assets/products/scent-sachets.jpg",
-    description: "Handmade fabric bags filled with fresh meadow scents for drawers."
-  },
-  {
-    id: "garden-frogs",
-    name: "Artisanal Ceramic Garden Frogs",
-    price: 10.00,
-    image: "/src/assets/products/garden-frogs.jpg",
-    description: "Playful ceramic frog accents perched on vibrant green lily pads."
-  }
-];
-
 const Shop = () => {
   const { addToCart } = useCart();
 
@@ -201,76 +200,14 @@ const Shop = () => {
         </div>
       </section>
 
-      {/* Latest Treasures Grid */}
+      {/* Shop Items Section */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <SectionHeading
-            scriptTitle="New in Store"
-            title="Latest Treasures"
-            subtitle="Freshly curated finds from our recent discoveries. Each piece is unique and ready for a new home."
-          />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mt-12">
-            {newArrivals.map((product, index) => (
+          <div className="space-y-32">
+            {shopItems.map((item, index) => (
               <motion.div
-                key={product.id}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-                className="group flex flex-col bg-accent/5 rounded-xl border border-primary/10 overflow-hidden hover:shadow-card transition-all duration-300"
-              >
-                <div className="aspect-square relative overflow-hidden">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
-                  <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Button
-                      size="sm"
-                      onClick={() => addToCart({ id: product.id, name: product.name, price: product.price, image: product.image })}
-                      className="rounded-full h-8 w-8 p-0"
-                    >
-                      <Plus className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </div>
-                <div className="p-4 flex flex-col flex-1">
-                  <h3 className="font-display text-base text-foreground mb-1 group-hover:text-primary transition-colors">
-                    {product.name}
-                  </h3>
-                  <p className="text-xs text-muted-foreground line-clamp-2 mb-3 italic">
-                    {product.description}
-                  </p>
-                  <div className="mt-auto flex items-center justify-between">
-                    <span className="text-primary font-body font-bold">
-                      ${product.price.toFixed(2)}
-                    </span>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-8 px-2 text-xs text-primary hover:text-primary hover:bg-primary/10"
-                      onClick={() => addToCart({ id: product.id, name: product.name, price: product.price, image: product.image })}
-                    >
-                      Add to Bag
-                    </Button>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Collections */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="space-y-20">
-            {collections.map((collection, index) => (
-              <motion.div
-                key={collection.id}
-                id={collection.id}
+                key={item.id}
+                id={item.id}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
@@ -279,54 +216,63 @@ const Shop = () => {
                   }`}
               >
                 <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                  <div className="aspect-[4/3] rounded-lg overflow-hidden shadow-card relative group">
+                  <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl relative group border border-border/50">
                     <img
-                      src={collection.image}
-                      alt={collection.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-black/5 group-hover:bg-black/20 transition-colors" />
-                    <div className="absolute bottom-4 right-4 animate-in fade-in slide-in-from-bottom-2">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute bottom-6 right-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                       <Button
-                        onClick={() => addToCart({ id: collection.id, name: collection.title, price: collection.price, image: collection.image })}
-                        className="shadow-xl"
+                        onClick={() => addToCart({ id: item.id, name: item.title, price: item.price, image: item.image })}
+                        className="shadow-2xl bg-white text-primary hover:bg-primary hover:text-white border-0 h-12 px-6 rounded-full font-bold"
                       >
-                        <ShoppingBag className="w-4 h-4 mr-2" /> Add to Bag — ${collection.price.toFixed(2)}
+                        <ShoppingBag className="w-5 h-5 mr-2" /> Add to Bag — ${item.price.toFixed(2)}
                       </Button>
                     </div>
                   </div>
                 </div>
                 <div className={index % 2 === 1 ? "lg:order-1" : ""}>
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="font-display text-3xl md:text-4xl text-foreground">
-                      {collection.title}
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="font-display text-4xl md:text-5xl text-foreground">
+                      {item.title}
                     </h2>
-                    <span className="text-2xl font-body text-primary font-semibold">
-                      ${collection.price.toFixed(2)}
+                    <span className="text-3xl font-body text-primary font-bold">
+                      ${item.price.toFixed(2)}
                     </span>
                   </div>
-                  <p className="text-lg text-muted-foreground mb-6 italic">
-                    {collection.description}
+                  <p className="text-xl text-muted-foreground mb-8 italic leading-relaxed">
+                    {item.description}
                   </p>
-                  <ul className="grid grid-cols-2 gap-2 mb-8">
-                    {collection.items.map((item) => (
+                  <ul className="grid grid-cols-2 gap-y-4 mb-12">
+                    {item.items.map((subItem) => (
                       <li
-                        key={item}
-                        className="flex items-center gap-2 text-foreground"
+                        key={subItem}
+                        className="flex items-center gap-3 text-foreground/90"
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-terracotta flex-shrink-0" />
-                        <span className="text-sm">{item}</span>
+                        <span className="w-2 h-2 rounded-full bg-primary/40 flex-shrink-0" />
+                        <span className="text-base font-medium">{subItem}</span>
                       </li>
                     ))}
                   </ul>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="w-full sm:w-auto"
-                    onClick={() => addToCart({ id: collection.id, name: collection.title, price: collection.price, image: collection.image })}
-                  >
-                    <ShoppingBag className="w-5 h-5 mr-2" /> Purchase {collection.title}
-                  </Button>
+                  <div className="flex flex-col sm:flex-row gap-5">
+                    <Button
+                      size="lg"
+                      className="flex-1 h-14 text-lg rounded-full"
+                      onClick={() => addToCart({ id: item.id, name: item.title, price: item.price, image: item.image })}
+                    >
+                      <ShoppingBag className="w-6 h-6 mr-2" /> Purchase {item.title}
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="flex-1 h-14 text-lg rounded-full border-2"
+                      asChild
+                    >
+                      <Link to="/contact">Ask About This Item</Link>
+                    </Button>
+                  </div>
                 </div>
               </motion.div>
             ))}
