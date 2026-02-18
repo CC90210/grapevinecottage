@@ -12,7 +12,7 @@ const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { role: "assistant", content: "Hi there! Welcome to Grapevine Cottage! 💜" },
-    { role: "assistant", content: "I'm Kim, the owner. What brings you in today?" },
+    { role: "assistant", content: "I'm your Grapevine concierge. Are you looking for a unique gift for someone special, or perhaps exploring our latest artisan treasures? I'm here to help you find the perfect find!" },
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -177,7 +177,7 @@ const ChatWidget = () => {
               🍇
             </div>
             <div>
-              <div style={{ color: "white", fontWeight: 600, fontSize: 16 }}>Chat with Kim</div>
+              <div style={{ color: "white", fontWeight: 600, fontSize: 16 }}>Grapevine Concierge</div>
               <div style={{ color: "rgba(255,255,255,0.8)", fontSize: 12 }}>Grapevine Cottage</div>
             </div>
           </div>
