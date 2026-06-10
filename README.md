@@ -1,3 +1,8 @@
+> # ⚠️ ARCHIVED — 2026-06-09
+> Client engagement ended. Read-only; kept for reference. Do not deploy.
+
+---
+
 # Welcome to Grapevine
 
 ## Project info
